@@ -4,6 +4,11 @@ import { supabaseAdmin } from "@/lib/supabase"
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
+    // If Supabase is not configured, return empty trades
+    if (!supabaseAdmin) {
+        return NextResponse.json({ trades: [] })
+    }
+
     try {
         const { data: trades, error } = await supabaseAdmin
             .from("trades")

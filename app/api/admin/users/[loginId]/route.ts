@@ -7,6 +7,11 @@ export async function PATCH(
     request: NextRequest,
     context: { params: { loginId: string } }
 ) {
+    // If Supabase is not configured, return error
+    if (!supabaseAdmin) {
+        return NextResponse.json({ error: "Supabase not configured" }, { status: 500 })
+    }
+
     try {
         const { loginId } = await context.params
         const { action } = await request.json()
@@ -44,6 +49,11 @@ export async function GET(
     request: NextRequest,
     context: { params: { loginId: string } }
 ) {
+    // If Supabase is not configured, return error
+    if (!supabaseAdmin) {
+        return NextResponse.json({ error: "Supabase not configured" }, { status: 500 })
+    }
+
     try {
         const { loginId } = await context.params
         const { data: user, error } = await supabaseAdmin

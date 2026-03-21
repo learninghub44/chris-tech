@@ -28,6 +28,11 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "loginId is required" }, { status: 400 })
         }
 
+        // If Supabase is not configured, skip database operations
+        if (!supabaseAdmin) {
+            return NextResponse.json({ success: true, message: "Supabase not configured" })
+        }
+
         const now = Math.floor(Date.now() / 1000)
 
         if (status === "offline") {

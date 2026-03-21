@@ -4,6 +4,22 @@ import { supabaseAdmin } from "@/lib/supabase"
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+    // If Supabase is not configured, return empty data
+    if (!supabaseAdmin) {
+        return NextResponse.json({
+            users: [],
+            trades: [],
+            summary: {
+                totalUsers: 0,
+                onlineUsers: 0,
+                totalTrades: 0,
+                totalVolume: 0,
+                totalPnL: 0,
+                winRate: 0
+            }
+        })
+    }
+
     try {
         const { searchParams } = new URL(request.url)
         const typeFilter = searchParams.get("type")

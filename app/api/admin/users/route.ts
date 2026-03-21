@@ -4,6 +4,11 @@ import { supabaseAdmin } from "@/lib/supabase"
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
+    // If Supabase is not configured, return empty users
+    if (!supabaseAdmin) {
+        return NextResponse.json({ users: [] })
+    }
+
     try {
         const { data: users, error } = await supabaseAdmin
             .from("users")

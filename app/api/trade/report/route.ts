@@ -10,6 +10,11 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "loginId and strategy required" }, { status: 400 })
         }
 
+        // If Supabase is not configured, skip database operations
+        if (!supabaseAdmin) {
+            return NextResponse.json({ success: true, message: "Supabase not configured" })
+        }
+
         const { error } = await supabaseAdmin.from("trades").insert({
             loginId,
             contractType: strategy,
@@ -35,6 +40,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+    // If Supabase is not configured, return empty data
+    if (!supabaseAdmin) {
+        return NextResponse.json({ trades: [], summary: { total: 0, profitable: 0, loss: 0, winRate: 0 } })
+    }
+
     const { searchParams } = new URL(request.url)
     const period = searchParams.get("period") || "daily"
     const now = Math.floor(Date.now() / 1000)

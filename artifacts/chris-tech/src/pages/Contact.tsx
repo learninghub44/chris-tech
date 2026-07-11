@@ -202,7 +202,7 @@ export default function Contact() {
                                   <SelectItem value="web-dev">Website Development</SelectItem>
                                   <SelectItem value="software">Custom Software/ERP</SelectItem>
                                   <SelectItem value="ai">AI Solutions & Automation</SelectItem>
-                                  <SelectItem value="mobile">Mobile App Development</SelectItem>
+                                  <SelectItem value="cloud">Cloud & Hosting</SelectItem>
                                   <SelectItem value="seo">SEO & Digital Marketing</SelectItem>
                                   <SelectItem value="academy">Chris Tech Academy</SelectItem>
                                   <SelectItem value="other">Other</SelectItem>

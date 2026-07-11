@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { ArrowRight, Code, Laptop, Smartphone, Database, Bot, Cloud, CheckCircle2, Star, StarHalf } from 'lucide-react';
+import { ArrowRight, Code, Laptop, Database, Bot, Cloud, CheckCircle2, Star, StarHalf } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
@@ -35,7 +35,7 @@ export default function Home() {
               
               <Reveal delay={0.2}>
                 <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed max-w-xl">
-                  We empower organizations through innovative enterprise websites, custom software, AI integrations, and mobile applications that drive measurable growth.
+                  We empower organizations through innovative enterprise websites, custom software, and AI integrations that drive measurable growth.
                 </p>
               </Reveal>
               
@@ -282,7 +282,7 @@ export default function Home() {
                   { label: 'Web Development', value: 95 },
                   { label: 'Custom Software', value: 90 },
                   { label: 'AI & Automation', value: 85 },
-                  { label: 'Mobile Apps', value: 80 },
+                  { label: 'Cloud & Hosting', value: 88 },
                 ].map((skill, i) => (
                   <div key={skill.label}>
                     <div className="flex justify-between mb-2">
@@ -410,7 +410,7 @@ export default function Home() {
                         <option>Website Development</option>
                         <option>Custom Software</option>
                         <option>AI Solutions</option>
-                        <option>Mobile App</option>
+                        <option>Cloud & Hosting</option>
                       </select>
                     </div>
                     <Button className="w-full py-6 text-base mt-2 shadow-lg shadow-primary/20">

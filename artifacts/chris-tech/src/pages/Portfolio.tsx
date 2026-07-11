@@ -41,11 +41,11 @@ export default function Portfolio() {
       tags: ["Next.js", "Google Maps API", "Cloudflare"]
     },
     {
-      title: "School Management App",
-      category: "Mobile App",
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070",
-      desc: "Parent-teacher communication app featuring real-time grade tracking, attendance notifications, and secure fee payment gateways.",
-      tags: ["React Native", "Firebase", "Node.js"]
+      title: "School Management System",
+      category: "Custom Software",
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2070",
+      desc: "CBC-compliant school platform with parent-teacher communication, real-time grade tracking, attendance, and secure fee payment via M-Pesa.",
+      tags: ["React", "Node.js", "PostgreSQL", "M-Pesa API"]
     }
   ];
 

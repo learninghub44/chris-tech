@@ -53,7 +53,6 @@ export default function Footer() {
             <Link href="/services#web-development" className="text-slate-400 hover:text-primary transition-colors text-sm">Website Development</Link>
             <Link href="/services#software" className="text-slate-400 hover:text-primary transition-colors text-sm">Custom Software</Link>
             <Link href="/services#ai-solutions" className="text-slate-400 hover:text-primary transition-colors text-sm">AI Solutions & Automation</Link>
-            <Link href="/services#mobile-apps" className="text-slate-400 hover:text-primary transition-colors text-sm">Mobile App Development</Link>
             <Link href="/services#cloud" className="text-slate-400 hover:text-primary transition-colors text-sm">Cloud Services</Link>
             <Link href="/services#seo" className="text-slate-400 hover:text-primary transition-colors text-sm">SEO & Digital Marketing</Link>
           </div>

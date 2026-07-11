@@ -62,7 +62,7 @@ export default function FAQ() {
         },
         {
           q: "Can you integrate M-Pesa into my website/software?",
-          a: "Yes. We have extensive experience integrating M-Pesa STK Push, C2B, and B2C APIs natively into e-commerce stores, custom software, and mobile apps for seamless payments."
+          a: "Yes. We have extensive experience integrating M-Pesa STK Push, C2B, and B2C APIs natively into e-commerce stores and custom software for seamless payments."
         },
         {
           q: "We have an existing system. Can you upgrade or fix it?",

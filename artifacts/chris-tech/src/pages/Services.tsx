@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Globe, Database, Bot, Smartphone, Cloud, LineChart, Code, Server, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Globe, Database, Bot, Cloud, LineChart, Code, Server, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
@@ -41,18 +41,6 @@ export default function Services() {
       benefits: ["Reduces operational costs significantly", "Provides instant 24/7 customer support", "Accelerates content generation"],
       features: ["Custom AI Chatbots", "Workflow Automation", "AI Agents", "Document Processing (OCR)", "WhatsApp AI Integration"],
       tech: ["OpenAI API", "LangChain", "Vector Databases"],
-      price: "Custom Quote"
-    },
-    {
-      id: "mobile-apps",
-      title: "Mobile App Development",
-      icon: <Smartphone className="w-8 h-8" />,
-      color: "text-emerald-500",
-      bgColor: "bg-emerald-500/10",
-      intro: "Put your business directly in your customers' pockets. We design and build intuitive, fast, and native-feeling mobile applications for both Android and iOS platforms.",
-      benefits: ["Increases customer engagement and retention", "Enables push notification marketing", "Provides offline capabilities"],
-      features: ["Cross-platform Development", "Native API Integration", "Offline Sync", "In-App Purchases", "Push Notifications"],
-      tech: ["React Native", "Flutter", "Firebase"],
       price: "Custom Quote"
     },
     {
@@ -177,7 +165,8 @@ export default function Services() {
       <section className="py-24 bg-white dark:bg-background border-t border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 text-center max-w-4xl">
           <Reveal>
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-16 text-foreground">Our Development Process</h2>
+            <h2 className="text-sm font-bold text-primary tracking-wider uppercase mb-3">How We Work</h2>
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-16 text-foreground">Our Development Process</h3>
           </Reveal>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 relative">

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Target, Lightbulb, Users, ShieldCheck, Globe2, Headphones, Award, HeartHandshake,
-  Sparkles, Layers, TrendingUp, Code2, Smartphone, Palette, Server, Megaphone
+  Sparkles, Layers, TrendingUp, Code2, Database, Palette, Server, Megaphone
 } from 'lucide-react';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
@@ -16,9 +16,9 @@ const stats = [
 
 const expertise = [
   { icon: <Code2 className="w-5 h-5" />, label: "Web Development", value: 95 },
-  { icon: <Server className="w-5 h-5" />, label: "Custom Software & ERPs", value: 90 },
+  { icon: <Database className="w-5 h-5" />, label: "Custom Software & ERPs", value: 90 },
   { icon: <Sparkles className="w-5 h-5" />, label: "AI Solutions & Automation", value: 88 },
-  { icon: <Smartphone className="w-5 h-5" />, label: "Mobile App Development", value: 82 },
+  { icon: <Server className="w-5 h-5" />, label: "Cloud & DevOps", value: 86 },
   { icon: <Palette className="w-5 h-5" />, label: "UI/UX Design", value: 85 },
   { icon: <Megaphone className="w-5 h-5" />, label: "SEO & Digital Marketing", value: 80 },
 ];

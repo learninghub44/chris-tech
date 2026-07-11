@@ -155,7 +155,8 @@ export default function Pricing() {
         <div className="container mx-auto px-4 max-w-5xl">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-display font-bold mb-4 text-foreground">Custom Systems & Software</h2>
+              <h2 className="text-sm font-bold text-primary tracking-wider uppercase mb-3">Enterprise Solutions</h2>
+              <h3 className="text-3xl font-display font-bold mb-4 text-foreground">Custom Systems & Software</h3>
               <p className="text-slate-600 dark:text-slate-400">Enterprise-grade solutions requiring advanced architecture and database design.</p>
             </div>
           </Reveal>
@@ -192,7 +193,8 @@ export default function Pricing() {
               <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
                 <Globe className="w-7 h-7" />
               </div>
-              <h2 className="text-3xl font-display font-bold mb-4 text-foreground">Hosting & Maintenance Plans</h2>
+              <h2 className="text-sm font-bold text-primary tracking-wider uppercase mb-3">Stay Online</h2>
+              <h3 className="text-3xl font-display font-bold mb-4 text-foreground">Hosting & Maintenance Plans</h3>
               <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">Keep your site online, secure, and fast with a monthly hosting plan — SSL, backups, and business email included.</p>
             </div>
           </Reveal>

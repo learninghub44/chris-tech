@@ -40,11 +40,21 @@ export default function Contact() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // In a real app, this would send an API request
-    console.log("Form values:", values);
+    const subject = `New Inquiry from ${values.name}${values.company ? ` (${values.company})` : ''}`;
+    const body =
+      `Name: ${values.name}\n` +
+      `Email: ${values.email}\n` +
+      `Phone: ${values.phone}\n` +
+      `Company: ${values.company || '-'}\n` +
+      `Service: ${values.service}\n` +
+      `Budget: ${values.budget}\n\n` +
+      `Message:\n${values.message}`;
+
+    window.location.href = `mailto:hello@christech.co.ke?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
     toast({
-      title: "Message Sent Successfully",
-      description: "Thank you for reaching out! A Chris Tech engineer will contact you shortly.",
+      title: "Opening Your Email App",
+      description: "We've prepared your message — just hit send in your email client to reach us.",
     });
     form.reset();
   };

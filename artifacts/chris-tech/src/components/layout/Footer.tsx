@@ -14,8 +14,8 @@ export default function Footer() {
           
           {/* Company Info */}
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <Link href="/" className="inline-flex items-center bg-white rounded-xl px-4 py-2.5 w-fit">
-              <img src="/logo.png" alt="Chris Tech" className="h-9 w-auto object-contain" />
+            <Link href="/" className="inline-flex items-center w-fit">
+              <img src="/logo-light.png" alt="Chris Tech" className="h-14 w-auto object-contain" />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
               Building Modern Digital Solutions for Growing Businesses. We empower organizations through innovative websites, custom software development, AI solutions, and digital transformation.

@@ -46,7 +46,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Chris Tech"
-              className="h-11 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-11 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
 

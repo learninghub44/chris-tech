@@ -1,9 +1,20 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Globe, Database, Bot, Cloud, LineChart, Code, Server, Shield, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Globe, Database, Bot, Cloud, LineChart, Code, Server, Shield, CheckCircle2, ArrowRight, Phone, Mail, MessageCircle, ChevronDown } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
+import { whatsappLink } from '@/components/layout/WhatsAppButton';
+
+const PHONE_NUMBER = '+254701059192';
+const CONTACT_EMAIL = 'hello@christech.co.ke';
 
 export default function Services() {
   const services = [
@@ -17,7 +28,6 @@ export default function Services() {
       benefits: ["Increases brand credibility and trust", "Drives organic traffic through SEO", "Provides a 24/7 sales engine for your business"],
       features: ["Custom UI/UX Design", "Responsive Mobile-First Build", "CMS Integration", "Performance Optimization", "Analytics Setup"],
       tech: ["Next.js", "React", "Tailwind CSS", "Vercel"],
-      price: "From KSh 8,000"
     },
     {
       id: "software",
@@ -29,7 +39,6 @@ export default function Services() {
       benefits: ["Eliminates manual data entry", "Centralizes business operations", "Scales infinitely with your company"],
       features: ["School Management Systems", "Hospital ERPs", "POS & Inventory", "Custom Dashboards", "Role-based Access Control"],
       tech: ["Node.js", "PostgreSQL", "Supabase", "Prisma"],
-      price: "From KSh 50,000"
     },
     {
       id: "ai-solutions",
@@ -41,7 +50,6 @@ export default function Services() {
       benefits: ["Reduces operational costs significantly", "Provides instant 24/7 customer support", "Accelerates content generation"],
       features: ["Custom AI Chatbots", "Workflow Automation", "AI Agents", "Document Processing (OCR)", "WhatsApp AI Integration"],
       tech: ["OpenAI API", "LangChain", "Vector Databases"],
-      price: "Custom Quote"
     },
     {
       id: "cloud",
@@ -53,7 +61,6 @@ export default function Services() {
       benefits: ["Guarantees 99.9% uptime", "Protects against cyber attacks", "Professionalizes communication with business emails"],
       features: ["Cloudflare CDN & WAF Setup", "Business Email Hosting", "SSL Installation", "Server Migration", "Automated Backups"],
       tech: ["Cloudflare", "AWS", "Linux", "Docker"],
-      price: "From KSh 5,000"
     },
     {
       id: "seo",
@@ -65,7 +72,6 @@ export default function Services() {
       benefits: ["Generates free, passive organic traffic", "Outranks local competitors", "Improves conversion rates"],
       features: ["Technical SEO Audits", "Keyword Strategy", "Google Business Setup", "Performance Analytics", "Speed Optimization"],
       tech: ["Google Analytics 4", "Search Console", "Ahrefs"],
-      price: "From KSh 15,000/mo"
     }
   ];
 
@@ -115,14 +121,35 @@ export default function Services() {
                       </div>
 
                       <div className="flex items-center gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
-                        <Button asChild size="lg" className="rounded-full shadow-md">
-                          <Link href={`/contact?service=${service.id}`}>
-                            Request Quote
-                          </Link>
-                        </Button>
-                        <span className="text-sm font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-full">
-                          {service.price}
-                        </span>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button size="lg" className="rounded-full shadow-md gap-2">
+                              Contact Us <ChevronDown className="w-4 h-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="start" className="w-56">
+                            <DropdownMenuItem asChild className="gap-2 cursor-pointer">
+                              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                                <FaWhatsapp className="w-4 h-4 text-[#25D366]" /> WhatsApp
+                              </a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild className="gap-2 cursor-pointer">
+                              <a href={`tel:${PHONE_NUMBER}`}>
+                                <Phone className="w-4 h-4 text-accent" /> Call Us
+                              </a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild className="gap-2 cursor-pointer">
+                              <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Inquiry: ${service.title}`)}&body=${encodeURIComponent(`Hi Chris Tech,\n\nI'd like to know more about your ${service.title} service.\n\n`)}`}>
+                                <Mail className="w-4 h-4 text-primary" /> Email Us
+                              </a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild className="gap-2 cursor-pointer">
+                              <Link href={`/contact?service=${service.id}`}>
+                                <MessageCircle className="w-4 h-4 text-purple-500" /> Send Message
+                              </Link>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </div>
                     </Reveal>
                   </div>

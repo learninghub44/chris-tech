@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { whatsappLink } from '@/components/layout/WhatsAppButton';
 
 export default function Footer() {
@@ -82,20 +80,6 @@ export default function Footer() {
                   <span>Nairobi, Kenya<br/>Available Worldwide</span>
                 </li>
               </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-display font-semibold text-sm mb-3">Subscribe to our newsletter</h4>
-              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-                <Input 
-                  type="email" 
-                  placeholder="Email address" 
-                  className="bg-slate-800/50 border-slate-700 focus-visible:ring-primary text-sm h-10"
-                />
-                <Button size="icon" type="submit" className="h-10 w-10 shrink-0">
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </form>
             </div>
           </div>
         </div>

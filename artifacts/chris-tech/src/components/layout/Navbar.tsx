@@ -42,10 +42,12 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 group z-50">
-            <div className="relative overflow-hidden flex items-center justify-center">
-              <img src="/logo.png" alt="Chris Tech Logo" className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
-            </div>
+          <Link href="/" className="flex items-center group z-50 shrink-0">
+            <img
+              src="/logo.png"
+              alt="Chris Tech"
+              className="h-11 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">

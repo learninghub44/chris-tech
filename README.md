@@ -46,7 +46,7 @@ pnpm install
 cp .env.example .env
 
 # Run the marketing site in dev mode
-pnpm --filter chris-tech run dev
+pnpm --filter @workspace/chris-tech run dev
 
 # Run the API server in dev mode
 pnpm --filter @workspace/api-server run dev
@@ -75,6 +75,26 @@ generated from `lib/api-spec/openapi.yaml`. After editing the OpenAPI spec, run:
 ```bash
 pnpm --filter @workspace/api-spec run codegen
 ```
+
+## Deployment
+
+The marketing site (`artifacts/chris-tech`) is a static Vite build deployed to **Cloudflare
+Pages**, connected directly to this GitHub repo (auto-deploys on push to `main`).
+
+**Cloudflare Pages project settings:**
+
+| Setting | Value |
+|---|---|
+| Framework preset | None (Vite, custom monorepo) |
+| Build command | `pnpm install --frozen-lockfile=false && pnpm --filter @workspace/chris-tech run build` |
+| Build output directory | `artifacts/chris-tech/dist/public` |
+| Root directory | `/` (repo root — required so pnpm can resolve workspace packages) |
+
+No environment variables are required for the build — `PORT` and `BASE_PATH` are only used by
+the local dev/preview server and default sensibly (`BASE_PATH` → `/`) for production builds.
+
+A `public/_redirects` file (`/* /index.html 200`) is included so client-side routes (e.g.
+`/services`, `/pricing`) don't 404 on direct navigation or refresh.
 
 ## Contributing
 

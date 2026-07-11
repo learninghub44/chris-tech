@@ -5,7 +5,7 @@ web development, custom software, and AI-powered solutions to Kenyan businesses.
 
 ## Run & Operate
 
-- `pnpm --filter chris-tech run dev` — run the marketing site (Vite dev server)
+- `pnpm --filter @workspace/chris-tech run dev` — run the marketing site (Vite dev server)
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages

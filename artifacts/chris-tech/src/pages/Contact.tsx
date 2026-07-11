@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
+import { whatsappLink } from '@/components/layout/WhatsAppButton';
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -90,7 +91,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <h4 className="font-bold text-sm text-slate-500 mb-1">Call or WhatsApp</h4>
-                        <a href="tel:+254700000000" className="text-foreground font-medium hover:text-accent transition-colors block">+254 700 000 000</a>
+                        <a href="tel:+254701059192" className="text-foreground font-medium hover:text-accent transition-colors block">+254 701 059 192</a>
                         <p className="text-xs text-slate-500 mt-1">Mon-Fri, 8am-5pm EAT</p>
                       </div>
                     </div>
@@ -108,8 +109,10 @@ export default function Contact() {
                   </div>
 
                   <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
-                    <Button variant="outline" className="w-full gap-2 border-accent text-accent hover:bg-accent hover:text-secondary">
-                      <MessageSquare className="w-4 h-4" /> Start WhatsApp Chat
+                    <Button asChild variant="outline" className="w-full gap-2 border-accent text-accent hover:bg-accent hover:text-secondary">
+                      <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                        <MessageSquare className="w-4 h-4" /> Start WhatsApp Chat
+                      </a>
                     </Button>
                   </div>
                 </div>

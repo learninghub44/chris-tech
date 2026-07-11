@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, ArrowRight, Github } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { whatsappLink } from '@/components/layout/WhatsAppButton';
 
 export default function Footer() {
   return (
@@ -65,11 +67,18 @@ export default function Footer() {
               <ul className="flex flex-col gap-3">
                 <li className="flex items-start gap-3 text-slate-400 text-sm">
                   <Mail className="w-5 h-5 text-primary shrink-0" />
-                  <a href="mailto:hello@christech.co.ke" className="hover:text-primary transition-colors">hello@christech.co.ke</a>
+                  <div className="flex flex-col gap-1">
+                    <a href="mailto:hello@christech.co.ke" className="hover:text-primary transition-colors">hello@christech.co.ke</a>
+                    <a href="mailto:sales@christech.co.ke" className="hover:text-primary transition-colors">sales@christech.co.ke</a>
+                  </div>
                 </li>
                 <li className="flex items-start gap-3 text-slate-400 text-sm">
                   <Phone className="w-5 h-5 text-primary shrink-0" />
-                  <a href="tel:+254700000000" className="hover:text-primary transition-colors">+254 700 000 000</a>
+                  <a href="tel:+254701059192" className="hover:text-primary transition-colors">+254 701 059 192</a>
+                </li>
+                <li className="flex items-start gap-3 text-slate-400 text-sm">
+                  <FaWhatsapp className="w-5 h-5 text-primary shrink-0" />
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Chat on WhatsApp</a>
                 </li>
                 <li className="flex items-start gap-3 text-slate-400 text-sm">
                   <MapPin className="w-5 h-5 text-primary shrink-0" />

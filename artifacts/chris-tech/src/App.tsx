@@ -7,6 +7,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import WhatsAppButton from '@/components/layout/WhatsAppButton';
 
 import Home from '@/pages/Home';
 import Services from '@/pages/Services';
@@ -52,6 +53,7 @@ function App() {
           <ScrollToTop />
           <Router />
         </WouterRouter>
+        <WhatsAppButton />
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>

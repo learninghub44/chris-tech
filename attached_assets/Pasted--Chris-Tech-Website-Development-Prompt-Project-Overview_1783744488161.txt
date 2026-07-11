@@ -1,0 +1,1343 @@
+# Chris Tech Website Development Prompt
+
+## Project Overview
+
+Build a world-class corporate technology company website for **Chris Tech**.
+
+The website should be **inspired by the overall style and user experience** of **https://www.jrmhd.tech**, but it **must be completely original**. Study the reference website's design language, spacing, typography, layout rhythm, animation quality, navigation structure, and premium presentation, but **do not copy** any text, images, icons, illustrations, branding, code, layouts, or proprietary visual elements.
+
+The final product should feel even more modern, polished, and premium while maintaining the unique Chris Tech brand identity.
+
+---
+
+# Brand
+
+Company Name:
+**Chris Tech**
+
+Tagline:
+**Building Modern Digital Solutions for Growing Businesses**
+
+Mission:
+To empower businesses through innovative websites, software development, AI solutions, and digital transformation.
+
+---
+
+# Overall Design Style
+
+The website should have the same premium corporate feel as the reference website while remaining completely original.
+
+Design characteristics:
+
+• Clean enterprise appearance
+• Large modern typography
+• Spacious layouts
+• Strong visual hierarchy
+• Premium white space
+• Elegant animations
+• Glassmorphism used subtly
+• Rounded corners (20–24px)
+• Soft shadows
+• Modern gradients
+• Professional technology aesthetic
+• Minimal but highly interactive
+• High-end SaaS/company website feel
+• Smooth transitions throughout the site
+• Fast loading
+• Excellent readability
+• Professional color consistency
+• Pixel-perfect spacing
+• Responsive on every device
+
+The website should immediately communicate trust, professionalism, innovation, and technical expertise.
+
+---
+
+# Color Palette
+
+Primary Blue
+#2563EB
+
+Dark Navy
+#0F172A
+
+Sky Blue Accent
+#38BDF8
+
+Light Background
+#F8FAFC
+
+White
+#FFFFFF
+
+Text Primary
+#111827
+
+Text Secondary
+#6B7280
+
+Success
+#10B981
+
+---
+
+# Typography
+
+Headings:
+Space Grotesk
+
+Body:
+Inter
+
+Large bold headings
+
+Comfortable line spacing
+
+Excellent typography hierarchy
+
+---
+
+# Navigation
+
+Sticky navigation
+
+Transparent while at the top
+
+Blur background after scrolling
+
+Logo on the left
+
+Navigation links:
+
+Home
+
+Services
+
+Portfolio
+
+Pricing
+
+About
+
+Blog
+
+Contact
+
+CTA Button
+
+Get Free Quote
+
+Mobile navigation with premium animation
+
+---
+
+# Hero Section
+
+Create an impressive hero section.
+
+Left Side
+
+Large headline
+
+Example:
+
+Building Websites That Grow Businesses.
+
+Supporting paragraph explaining Chris Tech.
+
+Buttons
+
+Get Started
+
+View Portfolio
+
+Client rating badge
+
+Years of experience badge
+
+Project completed counter
+
+Right Side
+
+Instead of copying the reference, create a unique interactive mockup showing:
+
+Website dashboard
+
+Analytics cards
+
+Laptop mockup
+
+Floating UI elements
+
+Code snippets
+
+Charts
+
+Business dashboard
+
+Animated gradient backgrounds
+
+Floating glowing elements
+
+Glass cards
+
+Subtle motion
+
+---
+
+# Background Effects
+
+Animated gradient mesh
+
+Blur circles
+
+Moving particles
+
+Glow effects
+
+Noise texture
+
+Mouse interaction
+
+---
+
+# Trust Section
+
+Animated logo carousel
+
+Include technology partners
+
+Cloudflare
+
+Supabase
+
+GitHub
+
+Google
+
+OpenAI
+
+React
+
+Next.js
+
+TypeScript
+
+Node.js
+
+PostgreSQL
+
+---
+
+# Statistics Section
+
+Animated counters
+
+150+
+
+Projects Completed
+
+98%
+
+Client Satisfaction
+
+5+
+
+Years Experience
+
+24/7
+
+Support
+
+---
+
+# Services Section
+
+Large premium cards.
+
+Each service should contain
+
+Professional icon
+
+Title
+
+Detailed explanation
+
+Benefits
+
+Features
+
+Read More button
+
+Services include:
+
+Website Development
+
+Business Websites
+
+Corporate Websites
+
+School Websites
+
+Portfolio Websites
+
+Landing Pages
+
+Church Websites
+
+NGO Websites
+
+E-commerce Development
+
+Online Stores
+
+Payment Integration
+
+Inventory Systems
+
+Order Management
+
+AI Solutions
+
+Chatbots
+
+AI Agents
+
+Automation
+
+Content Generation
+
+Software Development
+
+School Management Systems
+
+Hospital Systems
+
+POS Systems
+
+ERP
+
+CRM
+
+SACCO Systems
+
+Rental Systems
+
+Mobile App Development
+
+Android
+
+iOS
+
+Flutter
+
+React Native
+
+Cloud Services
+
+Hosting
+
+Business Emails
+
+Cloudflare Setup
+
+SSL
+
+Maintenance
+
+SEO & Digital Marketing
+
+Search Engine Optimization
+
+Google Business Profile
+
+Analytics
+
+Performance Optimization
+
+---
+
+# Why Choose Chris Tech
+
+Interactive cards
+
+Reasons include
+
+Professional Developers
+
+Affordable Pricing
+
+Fast Delivery
+
+Latest Technologies
+
+Modern UI
+
+Secure Development
+
+SEO Ready
+
+Scalable Solutions
+
+Excellent Support
+
+Free Consultation
+
+Transparent Communication
+
+Long-Term Maintenance
+
+---
+
+# Development Process
+
+Horizontal timeline
+
+Step 1
+
+Consultation
+
+↓
+
+Step 2
+
+Planning
+
+↓
+
+Step 3
+
+Design
+
+↓
+
+Step 4
+
+Development
+
+↓
+
+Step 5
+
+Testing
+
+↓
+
+Step 6
+
+Deployment
+
+↓
+
+Step 7
+
+Support
+
+---
+
+# Portfolio
+
+Premium project showcase
+
+Categories
+
+Corporate Websites
+
+Schools
+
+Hospitals
+
+Restaurants
+
+Hotels
+
+Real Estate
+
+POS
+
+AI Projects
+
+Dashboards
+
+Portfolio cards should animate beautifully.
+
+---
+
+# Technologies
+
+Display modern technology icons.
+
+React
+
+Next.js
+
+TypeScript
+
+Tailwind CSS
+
+Node.js
+
+Supabase
+
+PostgreSQL
+
+Cloudflare
+
+GitHub
+
+Docker
+
+Prisma
+
+Vercel (as experience)
+
+Framer Motion
+
+---
+
+# Pricing Section
+
+Beautiful pricing cards.
+
+Starter Website
+
+From KSh 8,000
+
+Business Website
+
+From KSh 15,000
+
+Corporate Website
+
+From KSh 30,000
+
+E-commerce Website
+
+From KSh 35,000
+
+Custom Software
+
+From KSh 50,000
+
+School Management System
+
+From KSh 60,000
+
+Hospital Management System
+
+From KSh 80,000
+
+Include detailed features for every package.
+
+Highlight the Business package as "Most Popular."
+
+---
+
+# Testimonials
+
+Modern sliding testimonial cards.
+
+Five-star ratings
+
+Professional client photos (placeholders)
+
+Company names
+
+Smooth carousel
+
+---
+
+# FAQ
+
+Animated accordion
+
+20+ frequently asked questions.
+
+---
+
+# Contact Section
+
+Professional contact form.
+
+Fields
+
+Name
+
+Company
+
+Email
+
+Phone
+
+Service
+
+Budget
+
+Message
+
+Embedded Google Maps placeholder
+
+WhatsApp CTA
+
+---
+
+# Footer
+
+Large enterprise footer.
+
+Company description
+
+Quick links
+
+Services
+
+Resources
+
+Blog
+
+Privacy Policy
+
+Terms
+
+Social media
+
+Newsletter subscription
+
+Copyright
+
+---
+
+# Animations
+
+Framer Motion throughout
+
+Fade animations
+
+Slide animations
+
+Stagger animations
+
+Hover lift
+
+Button ripple
+
+Glow hover
+
+Image parallax
+
+Number counting
+
+Infinite logo slider
+
+Smooth scrolling
+
+Scroll progress indicator
+
+Page transitions
+
+Loading animation
+
+Mouse-follow glow
+
+---
+
+# Performance
+
+Lighthouse score above 95
+
+Optimized images
+
+Code splitting
+
+Lazy loading
+
+SEO optimized
+
+Accessibility compliant
+
+Schema.org structured data
+
+Fast loading
+
+Excellent Core Web Vitals
+
+---
+
+# Technology Stack
+
+Framework:
+Next.js 15 App Router
+
+Language:
+TypeScript
+
+Styling:
+Tailwind CSS
+
+Animations:
+Framer Motion
+
+Icons:
+Lucide React
+
+Forms:
+React Hook Form + Zod
+
+Email:
+Resend
+
+Deployment:
+Cloudflare Pages
+
+Analytics:
+Google Analytics 4 + Microsoft Clarity
+
+Image Optimization:
+Cloudflare Images (or Next.js image optimization where compatible)
+
+Caching:
+Cloudflare CDN
+
+Security:
+Cloudflare WAF, HTTPS, security headers, CSP, rate limiting where applicable.
+
+---
+
+# Code Quality
+
+Use reusable components.
+
+Maintain a scalable folder structure.
+
+Use Server Components where appropriate.
+
+Follow best practices for accessibility.
+
+Ensure excellent SEO.
+
+Write clean, maintainable TypeScript.
+
+Avoid duplicated code.
+
+Optimize every component for performance.
+
+The final website should surpass the reference in polish and performance while remaining unmistakably original and branded for Chris Tech.
+Here's what I'd add to make **Chris Tech** feel like a complete digital technology company rather than just a website development business.
+
+### Add these services
+
+* Website Design & Development
+* Custom Software Development
+* AI Solutions & Automation
+* Mobile App Development (Android & iOS)
+* UI/UX Design
+* Branding & Logo Design
+* E-commerce Development
+* School Management Systems
+* Hospital Management Systems
+* POS Systems
+* CRM & ERP Systems
+* SACCO & Cooperative Systems
+* Hotel & Restaurant Management Systems
+* Real Estate Platforms
+* Booking & Reservation Systems
+* Multi-vendor Marketplaces
+* API Development & Integration
+* Cloud Infrastructure
+* Domain Registration
+* Web Hosting
+* Business Email Setup
+* Website Maintenance
+* Website Security
+* Website Speed Optimization
+* SEO Services
+* Google Business Profile Setup
+* Digital Marketing
+* Analytics & Reporting
+* Data Backup & Disaster Recovery
+* Technical Support
+* IT Consultancy
+
+---
+
+## Add a Learning Academy
+
+Since many people also want to learn technology, include an academy section.
+
+### Chris Tech Academy
+
+Learn practical technology skills from industry professionals.
+
+Courses:
+
+* HTML & CSS
+* JavaScript
+* TypeScript
+* React
+* Next.js
+* Tailwind CSS
+* Node.js
+* Express.js
+* NestJS
+* Python
+* Django
+* PostgreSQL
+* Supabase
+* Firebase
+* MongoDB
+* Git & GitHub
+* Docker
+* Linux
+* Cloudflare
+* Vercel Deployment
+* AI Development
+* Prompt Engineering
+* OpenAI APIs
+* Claude APIs
+* Gemini APIs
+* Payment Integration
+* M-Pesa Integration
+* Paystack Integration
+* System Design
+* UI/UX Design (Figma)
+* Freelancing
+* Building SaaS Products
+* Deploying Production Applications
+
+Learning options:
+
+* One-on-one mentorship
+* Physical training
+* Online classes
+* Weekend classes
+* Corporate training
+* Internship opportunities
+* Project-based learning
+* Certificates of completion
+
+---
+
+## Add AI Solutions
+
+Offer AI services such as:
+
+* AI Chatbots
+* Customer Support Bots
+* AI Agents
+* Voice Assistants
+* AI Image Generation
+* AI Content Writing
+* AI Resume Builders
+* AI Business Assistants
+* Workflow Automation
+* CRM Automation
+* WhatsApp AI
+* Document Processing
+* OCR Systems
+
+---
+
+## Add Cloud Services
+
+* Cloudflare Setup
+* Cloudflare Pages
+* Cloudflare Workers
+* Cloudflare R2
+* Vercel Deployment
+* AWS
+* Microsoft Azure
+* Google Cloud
+* VPS Setup
+* SSL Installation
+* CDN Configuration
+
+---
+
+## Add Integrations
+
+Payment:
+
+* M-Pesa
+* Paystack
+* Flutterwave
+* Stripe
+* PayPal
+
+Communication:
+
+* WhatsApp
+* Twilio
+* Resend
+* SendGrid
+* SMTP
+
+Maps:
+
+* Google Maps
+
+Authentication:
+
+* Supabase Auth
+* Clerk
+* Firebase Auth
+* Google Login
+
+Storage:
+
+* Cloudflare R2
+* Supabase Storage
+* AWS S3
+
+---
+
+## Portfolio Categories
+
+Display projects under:
+
+* Business Websites
+* Corporate Websites
+* E-commerce Stores
+* School Systems
+* Hospital Systems
+* POS Systems
+* AI Applications
+* Mobile Apps
+* Dashboards
+* CRM Systems
+* ERP Systems
+* Restaurant Systems
+* Hotel Systems
+* SACCO Systems
+
+---
+
+## Contact Features
+
+Allow visitors to:
+
+* Request a quote
+* Book a free consultation
+* Schedule a meeting
+* Upload project requirements
+* Attach documents
+* Choose preferred contact method
+* Start a WhatsApp chat
+* Call directly
+* Send an email
+* Request a callback
+
+---
+
+## Email Setup (Resend)
+
+Use **Resend** for reliable transactional emails.
+
+Features:
+
+* Contact form notifications
+* Quote request confirmations
+* Auto-reply emails
+* Consultation booking confirmations
+* Newsletter subscription
+* Portfolio inquiry emails
+* Password reset emails
+* Verification emails
+* Invoice emails
+* Project update notifications
+
+Business email addresses:
+
+* [hello@christech.co.ke](mailto:hello@christech.co.ke)
+* [info@christech.co.ke](mailto:info@christech.co.ke)
+* [support@christech.co.ke](mailto:support@christech.co.ke)
+* [sales@christech.co.ke](mailto:sales@christech.co.ke)
+* [careers@christech.co.ke](mailto:careers@christech.co.ke)
+* [academy@christech.co.ke](mailto:academy@christech.co.ke)
+* [billing@christech.co.ke](mailto:billing@christech.co.ke)
+
+---
+
+## Client Dashboard (Future)
+
+Clients should be able to:
+
+* Track project progress
+* View invoices
+* Make payments
+* Download files
+* View contracts
+* Request revisions
+* Chat with the Chris Tech team
+* Receive notifications
+* Manage hosting
+* Manage domains
+* Access maintenance reports
+
+---
+
+## Blog
+
+Create a knowledge center covering:
+
+* Web Development
+* AI
+* Cloud Computing
+* Cybersecurity
+* SEO
+* Digital Marketing
+* Business Growth
+* Programming Tutorials
+* Technology News
+* Case Studies
+
+---
+
+## Tech Stack
+
+* Next.js 15
+* React 19
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+* Node.js
+* Supabase
+* PostgreSQL
+* Prisma ORM
+* Cloudflare Pages
+* Cloudflare Workers
+* Cloudflare R2
+* Resend
+* React Hook Form
+* Zod
+* Lucide React
+* Google Analytics 4
+* Microsoft Clarity
+* GitHub Actions
+* ESLint
+* Prettier
+
+---
+
+## SEO
+
+Implement:
+
+* Dynamic metadata
+* Open Graph tags
+* Twitter Cards
+* Structured Schema.org data
+* XML sitemap
+* robots.txt
+* Canonical URLs
+* Breadcrumbs
+* FAQ schema
+* Local Business schema
+* Organization schema
+* Service schema
+* Blog schema
+
+---
+
+## Performance Goals
+
+* Google Lighthouse: 95–100
+* Core Web Vitals optimized
+* Lazy loading
+* Image optimization
+* Font optimization
+* Code splitting
+* Route prefetching
+* Cloudflare CDN caching
+* Brotli compression
+* Minified assets
+
+---
+
+## User Experience
+
+Include:
+
+* Dark mode
+* Light mode
+* Scroll progress indicator
+* Back-to-top button
+* Page loading animation
+* Cursor effects (desktop)
+* Accessible keyboard navigation
+* Search (for blog and services)
+* Multi-language support (future-ready)
+* Smooth transitions
+* Interactive service cards
+* Animated counters
+* Testimonial carousel
+* FAQ accordion
+* Sticky call-to-action
+* Mobile-first responsive design
+
+This scope gives you a **premium, enterprise-level technology company website** that not only showcases your services but also supports lead generation, education through the Chris Tech Academy, future client management, and scalable growth. It is well suited for deployment on **Cloudflare Pages**, with **Resend** handling transactional emails and **Cloudflare's** CDN and security features providing excellent performance and reliability.
+# Content Generation Instructions
+
+Do **not** use placeholder text, short descriptions, or generic marketing copy. Write **complete, professional, SEO-friendly content** for every page and every section of the website.
+
+For every service, page, feature, pricing package, and technology, provide **detailed explanations** as if the website is ready for production and does not need additional content.
+
+## Services
+
+For **every service**, include all of the following:
+
+* Service title
+* Professional introduction (150–300 words)
+* Why businesses need this service
+* Problems it solves
+* Benefits to the client
+* Complete list of features
+* Industries that can use the service
+* Development process
+* Technologies used
+* Estimated delivery time
+* Starting price (where applicable)
+* Frequently asked questions
+* Call-to-action encouraging users to request a quote
+
+Examples of services that must each receive a full detailed section:
+
+* Website Development
+* Business Websites
+* Corporate Websites
+* E-commerce Websites
+* Portfolio Websites
+* School Websites
+* NGO Websites
+* Church Websites
+* Hotel Websites
+* Restaurant Websites
+* Real Estate Websites
+* Booking Systems
+* School Management Systems
+* Hospital Management Systems
+* POS Systems
+* ERP Systems
+* CRM Systems
+* SACCO Systems
+* Rental Management Systems
+* AI Chatbots
+* AI Automation
+* AI Agents
+* Mobile App Development
+* UI/UX Design
+* Branding
+* Logo Design
+* SEO
+* Digital Marketing
+* Business Email Setup
+* Domain Registration
+* Web Hosting
+* Website Maintenance
+* Website Security
+* API Integration
+* Cloud Services
+* Cloudflare Setup
+* Cloud Migration
+* Database Development
+* Technical Support
+* IT Consultancy
+
+Every service should feel like its own professional landing page.
+
+---
+
+## Pricing
+
+For every pricing package, explain:
+
+* Who it is for
+* Detailed list of everything included
+* Features
+* Optional add-ons
+* Delivery timeline
+* Free support period
+* Maintenance options
+* Upgrade options
+* Frequently asked questions
+
+Packages:
+
+Starter Website – From KSh 8,000
+
+Business Website – From KSh 15,000
+
+Corporate Website – From KSh 30,000
+
+E-commerce Website – From KSh 35,000
+
+Custom Software – From KSh 50,000
+
+School Management System – From KSh 60,000
+
+Hospital Management System – From KSh 80,000
+
+Enterprise Solutions – Custom Quote
+
+---
+
+## Chris Tech Academy
+
+Create a complete academy page explaining:
+
+* What Chris Tech Academy is
+* Mission and vision
+* Why learn with Chris Tech
+* Teaching approach
+* One-on-one mentorship
+* Online classes
+* Physical classes
+* Corporate training
+* Internship opportunities
+* Project-based learning
+* Real-world portfolio development
+* Certificates
+* Career guidance
+* Freelancing support
+* Job readiness
+* Student success stories
+* Frequently asked questions
+
+For every course, explain:
+
+* Course overview
+* Skills taught
+* Duration
+* Difficulty level
+* Prerequisites
+* Practical projects
+* Career opportunities
+* Tools used
+* Certificate information
+
+Include detailed content for courses such as HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Node.js, Python, Supabase, PostgreSQL, Git & GitHub, Docker, Cloudflare, AI Development, Prompt Engineering, UI/UX Design, Figma, Mobile App Development, API Development, SaaS Development, and Deployment.
+
+---
+
+## Technologies
+
+For every technology used by Chris Tech, explain:
+
+* What it is
+* Why Chris Tech uses it
+* Its advantages
+* Where it is applied in projects
+* Client benefits
+
+Examples:
+
+Next.js
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Node.js
+
+Supabase
+
+PostgreSQL
+
+Prisma
+
+Cloudflare Pages
+
+Cloudflare Workers
+
+Cloudflare R2
+
+Resend
+
+GitHub
+
+Docker
+
+Framer Motion
+
+Google Analytics
+
+Microsoft Clarity
+
+---
+
+## Portfolio
+
+Instead of placeholders, create realistic case studies for each featured project including:
+
+* Client background
+* Challenge
+* Proposed solution
+* Features implemented
+* Technologies used
+* Results achieved
+* Client testimonial
+
+---
+
+## About Chris Tech
+
+Write a compelling company story including:
+
+* Company introduction
+* Vision
+* Mission
+* Core values
+* Why choose Chris Tech
+* Development philosophy
+* Commitment to quality
+* Innovation
+* Customer-first approach
+* Long-term support
+* Future goals
+
+---
+
+## FAQ
+
+Create at least **30 detailed frequently asked questions** with comprehensive answers covering services, pricing, payments, support, hosting, timelines, maintenance, AI, training, security, and software development.
+
+---
+
+## Blog
+
+Generate **20 SEO-ready blog article ideas** with:
+
+* Title
+* Summary
+* Target keywords
+* Meta description
+* Suggested URL slug
+
+---
+
+## Contact Page
+
+Provide detailed copy explaining:
+
+* How to request a quotation
+* How consultations work
+* Support channels
+* Business hours
+* Response times
+* Email support using Resend
+* WhatsApp support
+* Phone support
+* Office visits (if applicable)
+
+---
+
+## General Requirements
+
+* Write in professional, persuasive English.
+* Make all content SEO-friendly.
+* Avoid repetitive text.
+* Avoid placeholder content such as "Lorem Ipsum."
+* Every section should feel complete and ready for a live production website.
+* Use modern marketing copy combined with technically accurate explanations.
+* Ensure every page contains enough detail to rank well in search engines while remaining easy to read.

@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Chris Tech"
+version = "1.0.0"
+id = "artifacts/chris-tech"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25346
+
+[services.development]
+run = "pnpm --filter @workspace/chris-tech run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/chris-tech", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/chris-tech/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25346"
+BASE_PATH = "/"

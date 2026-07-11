@@ -7,10 +7,10 @@ import PageTransition from '@/components/layout/PageTransition';
 export default function Blog() {
   const articles = [
     {
-      title: "Why Your Business Needs a Custom ERP in 2024",
+      title: "Why Your Business Needs a Custom ERP in 2025",
       excerpt: "Stop forcing your team to use generic SaaS tools. Learn how a custom Enterprise Resource Planning system can save hundreds of hours per month.",
       category: "Software Development",
-      date: "Oct 12, 2023",
+      date: "Jan 12, 2025",
       readTime: "5 min read",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015"
     },
@@ -18,7 +18,7 @@ export default function Blog() {
       title: "The Ultimate Guide to AI Automation for Kenyan SMEs",
       excerpt: "From WhatsApp chatbots to automated document processing, discover practical ways to integrate AI into your local business today.",
       category: "AI Solutions",
-      date: "Nov 05, 2023",
+      date: "Feb 05, 2025",
       readTime: "7 min read",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070"
     },
@@ -26,7 +26,7 @@ export default function Blog() {
       title: "Next.js vs React: Which Should You Choose for Your Next Project?",
       excerpt: "A deep dive into the technical differences between building a standard React SPA and utilizing Next.js for server-side rendering and SEO.",
       category: "Web Development",
-      date: "Dec 01, 2023",
+      date: "Mar 01, 2025",
       readTime: "6 min read",
       image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070"
     },
@@ -34,7 +34,7 @@ export default function Blog() {
       title: "Securing Your E-commerce Store: Best Practices",
       excerpt: "Cyber threats are evolving. Learn the essential security headers, WAF configurations, and payment gateway protections every store needs.",
       category: "Cybersecurity",
-      date: "Jan 15, 2024",
+      date: "Apr 15, 2025",
       readTime: "8 min read",
       image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070"
     },
@@ -42,7 +42,7 @@ export default function Blog() {
       title: "Why Website Speed is Crucial for Conversion Rates",
       excerpt: "A 1-second delay in page load can cost you 7% of your conversions. Here's how we optimize websites to score 95+ on Google Lighthouse.",
       category: "SEO",
-      date: "Feb 08, 2024",
+      date: "May 08, 2025",
       readTime: "4 min read",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070"
     },
@@ -50,7 +50,7 @@ export default function Blog() {
       title: "Starting a Career in Tech: The Chris Tech Academy Approach",
       excerpt: "University curriculums are falling behind. Why project-based, mentorship-driven learning is the fastest way to become a software engineer.",
       category: "Education",
-      date: "Mar 22, 2024",
+      date: "Jun 22, 2025",
       readTime: "5 min read",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070"
     }

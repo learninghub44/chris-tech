@@ -1,9 +1,20 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { BookOpen, Code, Terminal, BrainCircuit, Figma, Rocket, CheckCircle2, ArrowRight } from 'lucide-react';
+import { BookOpen, Code, Terminal, BrainCircuit, Figma, Rocket, CheckCircle2, ArrowRight, Mail, ChevronDown } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
+
+const ENROLL_EMAIL = 'hello@christech.co.ke';
+const enrollEmailLink = `mailto:${ENROLL_EMAIL}?subject=${encodeURIComponent('Chris Tech Academy Enrollment')}&body=${encodeURIComponent("Hi Chris Tech,\n\nI'd like to enroll in the Academy. Here are my details:\n\nName:\nTrack of interest:\nPreferred start date:\n")}`;
+const enrollWhatsappLink = `https://wa.me/254701059192?text=${encodeURIComponent("Hi Chris Tech! I'd like to enroll in the Chris Tech Academy. Can you tell me more about upcoming intakes?")}`;
 
 export default function Academy() {
   const courses = [
@@ -59,10 +70,35 @@ export default function Academy() {
               <p className="text-lg text-slate-300 mb-8 max-w-xl">
                 Skip the outdated university curriculum. Learn the exact modern tech stack we use every day to build enterprise software for real clients.
               </p>
-              <div className="flex gap-4">
-                <Button size="lg" className="bg-accent text-secondary hover:bg-white rounded-full">
-                  Enroll Now
-                </Button>
+              <div className="flex flex-wrap gap-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="lg" className="bg-accent text-secondary hover:bg-white rounded-full gap-2">
+                      Enroll Now
+                      <ChevronDown className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-64">
+                    <DropdownMenuItem asChild>
+                      <a href={enrollEmailLink} className="flex items-center gap-3 cursor-pointer py-2.5">
+                        <Mail className="w-4 h-4 text-primary" />
+                        <div className="flex flex-col">
+                          <span className="font-medium">Email Us</span>
+                          <span className="text-xs text-muted-foreground">{ENROLL_EMAIL}</span>
+                        </div>
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href={enrollWhatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 cursor-pointer py-2.5">
+                        <FaWhatsapp className="w-4 h-4 text-[#25D366]" />
+                        <div className="flex flex-col">
+                          <span className="font-medium">WhatsApp Us</span>
+                          <span className="text-xs text-muted-foreground">+254 701 059 192</span>
+                        </div>
+                      </a>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button size="lg" variant="outline" className="text-white border-white/30 rounded-full bg-transparent">
                   View Syllabus
                 </Button>

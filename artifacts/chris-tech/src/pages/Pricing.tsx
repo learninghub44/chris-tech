@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Check, X, Shield, Zap, Clock } from 'lucide-react';
+import { Check, X, Shield, Zap, Clock, Rocket, Crown, Gem, Globe, Mail as MailIcon, RefreshCw, LifeBuoy, GraduationCap, HeartPulse, Cog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
@@ -9,6 +9,7 @@ export default function Pricing() {
   const plans = [
     {
       name: "Starter Website",
+      icon: <Rocket className="w-6 h-6" />,
       price: "KSh 8,000",
       description: "Perfect for small businesses and freelancers establishing an online presence.",
       features: [
@@ -24,6 +25,7 @@ export default function Pricing() {
     },
     {
       name: "Business Website",
+      icon: <Gem className="w-6 h-6" />,
       price: "KSh 15,000",
       description: "Ideal for growing companies needing a strong corporate identity and lead generation.",
       features: [
@@ -40,6 +42,7 @@ export default function Pricing() {
     },
     {
       name: "Corporate / E-commerce",
+      icon: <Crown className="w-6 h-6" />,
       price: "KSh 35,000",
       description: "Full-scale digital platforms for enterprises and online stores.",
       features: [
@@ -57,10 +60,31 @@ export default function Pricing() {
     }
   ];
 
+  const hostingPlans = [
+    {
+      name: "Basic Hosting",
+      price: "KSh 1,500",
+      period: "/ month",
+      features: ["1 Website", "5 GB SSD Storage", "Free SSL Certificate", "1 Business Email", "99.9% Uptime SLA", "Daily Backups"]
+    },
+    {
+      name: "Pro Hosting",
+      price: "KSh 3,000",
+      period: "/ month",
+      features: ["Up to 3 Websites", "20 GB SSD Storage", "Free SSL Certificate", "5 Business Emails", "99.9% Uptime SLA", "Daily Backups", "Priority Support"]
+    },
+    {
+      name: "Business Hosting",
+      price: "KSh 6,000",
+      period: "/ month",
+      features: ["Unlimited Websites", "50 GB SSD Storage", "Free SSL Certificate", "Unlimited Business Emails", "99.9% Uptime SLA", "Daily Backups + Cloudflare WAF", "24/7 Priority Support"]
+    }
+  ];
+
   const systems = [
-    { name: "School Management System", price: "From KSh 60,000", desc: "Student records, fee tracking, grading, parent portal." },
-    { name: "Hospital Management System", price: "From KSh 80,000", desc: "Patient records, billing, pharmacy inventory, appointments." },
-    { name: "Custom ERP/CRM", price: "From KSh 100,000", desc: "Bespoke operational software built to your exact workflow." }
+    { icon: <GraduationCap className="w-6 h-6" />, name: "School Management System", price: "From KSh 60,000", desc: "Student records, fee tracking, grading, parent portal." },
+    { icon: <HeartPulse className="w-6 h-6" />, name: "Hospital Management System", price: "From KSh 80,000", desc: "Patient records, billing, pharmacy inventory, appointments." },
+    { icon: <Cog className="w-6 h-6" />, name: "Custom ERP/CRM", price: "From KSh 100,000", desc: "Bespoke operational software built to your exact workflow." }
   ];
 
   return (
@@ -89,6 +113,9 @@ export default function Pricing() {
                   )}
                   
                   <div className="mb-8">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${plan.popular ? 'bg-primary text-white' : 'bg-primary/10 text-primary'}`}>
+                      {plan.icon}
+                    </div>
                     <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
                     <p className="text-slate-500 text-sm mb-6 h-10">{plan.description}</p>
                     <div className="flex items-baseline gap-1">
@@ -137,6 +164,9 @@ export default function Pricing() {
             {systems.map((sys, i) => (
               <Reveal key={i} delay={i * 0.1}>
                 <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 text-center hover:border-accent transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+                    {sys.icon}
+                  </div>
                   <h4 className="font-bold text-lg mb-2 text-foreground">{sys.name}</h4>
                   <p className="text-sm text-slate-500 mb-4">{sys.desc}</p>
                   <p className="text-xl font-black text-primary">{sys.price}</p>
@@ -152,6 +182,62 @@ export default function Pricing() {
                </Link>
              </Button>
           </div>
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection className="py-20 bg-slate-50 dark:bg-background border-t border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <Reveal>
+            <div className="text-center mb-12">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
+                <Globe className="w-7 h-7" />
+              </div>
+              <h2 className="text-3xl font-display font-bold mb-4 text-foreground">Hosting & Maintenance Plans</h2>
+              <p className="text-slate-600 dark:text-slate-400 max-w-xl mx-auto">Keep your site online, secure, and fast with a monthly hosting plan — SSL, backups, and business email included.</p>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {hostingPlans.map((plan, i) => (
+              <Reveal key={i} delay={i * 0.1}>
+                <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-primary/40 transition-all h-full flex flex-col">
+                  <h4 className="font-display font-bold text-xl mb-1 text-foreground">{plan.name}</h4>
+                  <div className="flex items-baseline gap-1 mb-6">
+                    <span className="text-3xl font-black text-primary">{plan.price}</span>
+                    <span className="text-sm text-slate-500">{plan.period}</span>
+                  </div>
+                  <div className="space-y-3 mb-8 flex-1">
+                    {plan.features.map((f, idx) => (
+                      <div key={idx} className="flex items-center gap-2.5">
+                        <Check className="w-4 h-4 text-success shrink-0" />
+                        <span className="text-slate-600 dark:text-slate-300 text-sm">{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button asChild variant="outline" className="w-full rounded-xl">
+                    <Link href={`/contact?plan=${encodeURIComponent(plan.name)}`}>Choose Plan</Link>
+                  </Button>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.3}>
+            <div className="grid sm:grid-cols-3 gap-6 mt-10 max-w-4xl mx-auto text-center">
+              <div className="flex flex-col items-center gap-2">
+                <MailIcon className="w-6 h-6 text-primary" />
+                <span className="text-sm text-slate-500 dark:text-slate-400">Free business email setup on every plan</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <RefreshCw className="w-6 h-6 text-primary" />
+                <span className="text-sm text-slate-500 dark:text-slate-400">Automatic daily backups & renewals</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <LifeBuoy className="w-6 h-6 text-primary" />
+                <span className="text-sm text-slate-500 dark:text-slate-400">Real support via WhatsApp & email</span>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </AnimatedSection>
 

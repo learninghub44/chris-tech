@@ -4,11 +4,13 @@ import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import { HelpCircle, ServerCog, BrainCircuit, GraduationCap, MessageCircleQuestion } from 'lucide-react';
 
 export default function FAQ() {
   const faqs = [
     {
       category: "General & Working With Us",
+      icon: <HelpCircle className="w-5 h-5" />,
       items: [
         {
           q: "How much does a website cost?",
@@ -30,6 +32,7 @@ export default function FAQ() {
     },
     {
       category: "Technical & Hosting",
+      icon: <ServerCog className="w-5 h-5" />,
       items: [
         {
           q: "Do you provide web hosting and domain registration?",
@@ -51,6 +54,7 @@ export default function FAQ() {
     },
     {
       category: "AI & Custom Software",
+      icon: <BrainCircuit className="w-5 h-5" />,
       items: [
         {
           q: "What is an AI Chatbot and how can it help my business?",
@@ -68,6 +72,7 @@ export default function FAQ() {
     },
     {
       category: "Chris Tech Academy",
+      icon: <GraduationCap className="w-5 h-5" />,
       items: [
         {
           q: "Are the academy classes online or physical?",
@@ -86,6 +91,9 @@ export default function FAQ() {
       <section className="bg-slate-50 dark:bg-background pt-24 pb-16">
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <Reveal>
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-6">
+              <MessageCircleQuestion className="w-8 h-8" />
+            </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-6 text-foreground">Frequently Asked Questions</h1>
             <p className="text-lg text-slate-600 dark:text-slate-400">
               Everything you need to know about working with Chris Tech, our services, pricing, and technology.
@@ -101,7 +109,10 @@ export default function FAQ() {
             {faqs.map((section, idx) => (
               <Reveal key={idx} delay={idx * 0.1}>
                 <div className="mb-8">
-                  <h3 className="text-2xl font-display font-bold mb-6 text-primary border-b border-slate-100 dark:border-slate-800 pb-2">{section.category}</h3>
+                  <h3 className="flex items-center gap-3 text-2xl font-display font-bold mb-6 text-primary border-b border-slate-100 dark:border-slate-800 pb-2">
+                    <span className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">{section.icon}</span>
+                    {section.category}
+                  </h3>
                   <Accordion type="single" collapsible className="w-full">
                     {section.items.map((faq, i) => (
                       <AccordionItem key={i} value={`item-${idx}-${i}`} className="border-slate-200 dark:border-slate-800">

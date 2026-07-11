@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Globe, Database, Bot, Cloud, LineChart, Code, Server, Shield, CheckCircle2, ArrowRight, Phone, Mail, MessageCircle, ChevronDown } from 'lucide-react';
+import { Code, Server, Shield, CheckCircle2, ArrowRight, Phone, Mail, MessageCircle, ChevronDown } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,8 +20,8 @@ export default function Services() {
   const services = [
     {
       id: "web-development",
+      illustration: "/illustrations/web-development.svg",
       title: "Website Development",
-      icon: <Globe className="w-8 h-8" />,
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
       intro: "We build high-performance, conversion-optimized websites that serve as the digital foundation for your business. From striking landing pages to complex e-commerce platforms, our sites are engineered for speed, SEO, and scalability.",
@@ -31,8 +31,8 @@ export default function Services() {
     },
     {
       id: "software",
+      illustration: "/illustrations/custom-software.svg",
       title: "Custom Software Development",
-      icon: <Database className="w-8 h-8" />,
       color: "text-indigo-500",
       bgColor: "bg-indigo-500/10",
       intro: "Stop forcing your unique business processes into generic software. We develop bespoke web applications, ERPs, and management systems that align perfectly with how your team actually works.",
@@ -42,8 +42,8 @@ export default function Services() {
     },
     {
       id: "ai-solutions",
+      illustration: "/illustrations/ai-solutions.svg",
       title: "AI Solutions & Automation",
-      icon: <Bot className="w-8 h-8" />,
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
       intro: "Leverage the power of Artificial Intelligence to automate repetitive tasks, enhance customer support, and extract insights from your data. We integrate cutting-edge LLMs directly into your business workflows.",
@@ -53,8 +53,8 @@ export default function Services() {
     },
     {
       id: "cloud",
+      illustration: "/illustrations/cloud-infrastructure.svg",
       title: "Cloud & Infrastructure Services",
-      icon: <Cloud className="w-8 h-8" />,
       color: "text-sky-500",
       bgColor: "bg-sky-500/10",
       intro: "Ensure your digital assets are secure, blazing fast, and always online. We handle complex cloud deployments, security configurations, and enterprise email setups.",
@@ -64,8 +64,8 @@ export default function Services() {
     },
     {
       id: "seo",
+      illustration: "/illustrations/seo-marketing.svg",
       title: "SEO & Digital Marketing",
-      icon: <LineChart className="w-8 h-8" />,
       color: "text-amber-500",
       bgColor: "bg-amber-500/10",
       intro: "A beautiful website is useless if no one can find it. Our data-driven SEO and performance marketing strategies ensure your business ranks at the top of Google for keywords that matter.",
@@ -98,8 +98,8 @@ export default function Services() {
                   
                   <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
                     <Reveal>
-                      <div className={`w-16 h-16 rounded-2xl ${service.bgColor} ${service.color} flex items-center justify-center mb-6`}>
-                        {service.icon}
+                      <div className={`w-20 h-20 rounded-2xl ${service.bgColor} flex items-center justify-center mb-6 overflow-hidden`}>
+                        <img src={service.illustration} alt={service.title} className="w-full h-full object-contain p-1" />
                       </div>
                       <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">{service.title}</h2>
                       <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
@@ -156,7 +156,7 @@ export default function Services() {
 
                   <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
                     <Reveal delay={0.2}>
-                      <div className="glass-card rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900">
+                      <div className="glass-card rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
                         <h4 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
                           <Server className="w-5 h-5 text-slate-400" /> Included Features
                         </h4>

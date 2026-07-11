@@ -1,0 +1,44 @@
+<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blob background -->
+  <path d="M330,150 C340,220 300,300 220,325 C130,353 30,310 12,225 C-5,145 45,55 135,25 C230,-7 318,60 330,150 Z" fill="#3b82f6" fill-opacity="0.12"/>
+
+  <!-- Browser window -->
+  <g>
+    <rect x="90" y="90" width="230" height="165" rx="14" fill="#0f172a"/>
+    <rect x="90" y="90" width="230" height="34" rx="14" fill="#1e293b"/>
+    <rect x="90" y="112" width="230" height="12" fill="#1e293b"/>
+    <circle cx="110" cy="107" r="5" fill="#f87171"/>
+    <circle cx="128" cy="107" r="5" fill="#fbbf24"/>
+    <circle cx="146" cy="107" r="5" fill="#34d399"/>
+    <rect x="175" y="99" width="110" height="16" rx="8" fill="#334155"/>
+
+    <!-- code lines -->
+    <rect x="112" y="145" width="70" height="10" rx="5" fill="#3b82f6"/>
+    <rect x="112" y="163" width="110" height="10" rx="5" fill="#60a5fa"/>
+    <rect x="130" y="181" width="90" height="10" rx="5" fill="#3b82f6"/>
+    <rect x="130" y="199" width="60" height="10" rx="5" fill="#60a5fa"/>
+    <rect x="112" y="217" width="130" height="10" rx="5" fill="#3b82f6"/>
+  </g>
+
+  <!-- code bracket accent -->
+  <g fill="none" stroke="#2463eb" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M255,235 L285,265 L255,295"/>
+    <path d="M340,235 L310,265 L340,295"/>
+  </g>
+  <line x1="305" y1="300" x2="290" y2="230" stroke="#93c5fd" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- floating badge: gear -->
+  <g transform="translate(60,255)">
+    <circle cx="20" cy="20" r="26" fill="#ffffff"/>
+    <circle cx="20" cy="20" r="26" fill="none" stroke="#dbeafe" stroke-width="2"/>
+    <path d="M20 8 a12 12 0 0 1 0 24 a12 12 0 0 1 0-24" fill="none" stroke="#2463eb" stroke-width="4"/>
+    <circle cx="20" cy="20" r="4" fill="#2463eb"/>
+  </g>
+
+  <!-- floating badge: cursor -->
+  <g transform="translate(300,60)">
+    <circle cx="18" cy="18" r="24" fill="#ffffff"/>
+    <circle cx="18" cy="18" r="24" fill="none" stroke="#dbeafe" stroke-width="2"/>
+    <path d="M10,8 L28,18 L19,20 L16,29 Z" fill="#2463eb"/>
+  </g>
+</svg>

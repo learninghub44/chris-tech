@@ -1,0 +1,47 @@
+<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blob background -->
+  <path d="M322,148 C336,216 292,297 210,321 C124,347 28,300 15,217 C1,136 55,50 146,23 C238,-5 309,77 322,148 Z" fill="#0ea5e9" fill-opacity="0.12"/>
+
+  <!-- Cloud shape -->
+  <path d="M120,205 a35,35 0 0 1 8,-69 a48,48 0 0 1 93,-14 a38,38 0 0 1 9,75 Z" fill="#0ea5e9"/>
+  <path d="M120,205 a35,35 0 0 1 8,-69 a48,48 0 0 1 93,-14 a38,38 0 0 1 9,75 Z" fill="none" stroke="#0369a1" stroke-width="4" opacity="0.15"/>
+
+  <!-- upward arrow inside cloud -->
+  <g transform="translate(165,140)" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="20" y1="45" x2="20" y2="5"/>
+    <path d="M6,20 L20,5 L34,20"/>
+  </g>
+
+  <!-- server rack -->
+  <g transform="translate(140,215)">
+    <rect x="0" y="0" width="140" height="70" rx="10" fill="#0f172a"/>
+    <rect x="14" y="12" width="112" height="16" rx="4" fill="#1e293b"/>
+    <circle cx="26" cy="20" r="4" fill="#34d399"/>
+    <rect x="40" y="16" width="70" height="8" rx="4" fill="#334155"/>
+
+    <rect x="14" y="34" width="112" height="16" rx="4" fill="#1e293b"/>
+    <circle cx="26" cy="42" r="4" fill="#38bdf8"/>
+    <rect x="40" y="38" width="70" height="8" rx="4" fill="#334155"/>
+
+    <rect x="14" y="56" width="112" height="8" rx="4" fill="#1e293b"/>
+  </g>
+
+  <!-- floating badge: signal/wifi -->
+  <g transform="translate(60,235)">
+    <circle cx="22" cy="22" r="28" fill="#ffffff"/>
+    <circle cx="22" cy="22" r="28" fill="none" stroke="#e0f2fe" stroke-width="2"/>
+    <g fill="none" stroke="#0ea5e9" stroke-width="4" stroke-linecap="round">
+      <path d="M12,26 a14 14 0 0 1 20,0"/>
+      <path d="M17,31 a7 7 0 0 1 10,0"/>
+    </g>
+    <circle cx="22" cy="34" r="2.5" fill="#0ea5e9"/>
+  </g>
+
+  <!-- floating badge: shield -->
+  <g transform="translate(300,70)">
+    <circle cx="18" cy="18" r="24" fill="#ffffff"/>
+    <circle cx="18" cy="18" r="24" fill="none" stroke="#e0f2fe" stroke-width="2"/>
+    <path d="M18,7 L28,11 V19 C28,26 24,30 18,32 C12,30 8,26 8,19 V11 Z" fill="#0ea5e9"/>
+    <path d="M13,18 L17,22 L24,14" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

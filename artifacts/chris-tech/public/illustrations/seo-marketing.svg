@@ -1,0 +1,39 @@
+<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blob background -->
+  <path d="M326,150 C339,219 295,300 213,323 C126,349 29,302 15,219 C1,137 55,50 147,23 C240,-6 313,79 326,150 Z" fill="#f59e0b" fill-opacity="0.12"/>
+
+  <!-- bar chart panel -->
+  <rect x="95" y="95" width="185" height="165" rx="16" fill="#0f172a"/>
+  <g>
+    <rect x="118" y="200" width="24" height="40" rx="4" fill="#f59e0b"/>
+    <rect x="152" y="175" width="24" height="65" rx="4" fill="#fbbf24"/>
+    <rect x="186" y="150" width="24" height="90" rx="4" fill="#f59e0b"/>
+    <rect x="220" y="120" width="24" height="120" rx="4" fill="#fbbf24"/>
+  </g>
+  <path d="M118,190 L164,160 L198,175 L244,110" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M228,110 L244,110 L244,126" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- magnifying glass -->
+  <g transform="translate(230,150)">
+    <circle cx="45" cy="45" r="40" fill="none" stroke="#f59e0b" stroke-width="10"/>
+    <circle cx="45" cy="45" r="40" fill="#fef3c7" fill-opacity="0.15"/>
+    <line x1="75" y1="75" x2="105" y2="105" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- floating badge: target -->
+  <g transform="translate(55,235)">
+    <circle cx="22" cy="22" r="28" fill="#ffffff"/>
+    <circle cx="22" cy="22" r="28" fill="none" stroke="#fef3c7" stroke-width="2"/>
+    <circle cx="22" cy="22" r="13" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <circle cx="22" cy="22" r="7" fill="none" stroke="#f59e0b" stroke-width="3"/>
+    <circle cx="22" cy="22" r="2.5" fill="#f59e0b"/>
+  </g>
+
+  <!-- floating badge: trending up -->
+  <g transform="translate(300,255)">
+    <circle cx="20" cy="20" r="26" fill="#ffffff"/>
+    <circle cx="20" cy="20" r="26" fill="none" stroke="#fef3c7" stroke-width="2"/>
+    <path d="M9,26 L18,17 L23,22 L31,12" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M25,12 L31,12 L31,18" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

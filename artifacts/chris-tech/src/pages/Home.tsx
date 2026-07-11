@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { ArrowRight, Code, Laptop, Database, Bot, Cloud, CheckCircle2, Star, StarHalf } from 'lucide-react';
+import { ArrowRight, Code, Bot, Cloud, CheckCircle2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
@@ -18,13 +18,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             
             <div className="max-w-2xl">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6">
-                  <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                  <span className="text-xs font-medium text-slate-800 dark:text-slate-200">The premier tech partner in Kenya</span>
-                </div>
-              </Reveal>
-              
               <Reveal delay={0.1}>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-display leading-[1.1] mb-6 text-foreground tracking-tight">
                   Building Modern <br/>
@@ -55,36 +48,6 @@ export default function Home() {
                 </div>
               </Reveal>
               
-              <Reveal delay={0.4}>
-                <div className="flex items-center gap-8 border-t border-slate-200 dark:border-slate-800 pt-8 mt-8">
-                  <div className="flex items-center gap-3">
-                    <div className="flex -space-x-3">
-                      {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
-                          <img src={`https://api.dicebear.com/7.x/notionists/svg?seed=user${i}&backgroundColor=e2e8f0`} alt="Client avatar" />
-                        </div>
-                      ))}
-                    </div>
-                    <div>
-                      <div className="flex items-center text-amber-400">
-                        <Star className="w-4 h-4 fill-current" />
-                        <Star className="w-4 h-4 fill-current" />
-                        <Star className="w-4 h-4 fill-current" />
-                        <Star className="w-4 h-4 fill-current" />
-                        <StarHalf className="w-4 h-4 fill-current" />
-                      </div>
-                      <p className="text-sm font-medium mt-1"><span className="text-foreground font-bold">98%</span> Client Satisfaction</p>
-                    </div>
-                  </div>
-                  
-                  <div className="w-px h-12 bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
-                  
-                  <div className="hidden sm:block">
-                    <p className="text-3xl font-display font-bold text-foreground">150<span className="text-primary">+</span></p>
-                    <p className="text-sm font-medium text-slate-500">Projects Delivered</p>
-                  </div>
-                </div>
-              </Reveal>
             </div>
             
             <div className="relative lg:h-[600px] flex items-center justify-center">
@@ -181,22 +144,22 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Reveal delay={0.1}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
-                  <Laptop className="w-7 h-7" />
+              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-primary transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
+                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
+                  <img src="/illustrations/web-development.svg" alt="Web Development" className="w-full h-36 object-contain p-2" />
                 </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground">Web Development</h4>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-1">
+                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">Web Development</h4>
+                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
                   High-performance corporate websites, e-commerce stores, and landing pages optimized for speed, SEO, and conversion.
                 </p>
                 <ul className="space-y-2 mb-8">
                   {['Business Websites', 'E-commerce Platforms', 'Portfolio Sites'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-primary" /> {item}
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
+                      <CheckCircle2 className="w-4 h-4 text-primary group-hover:text-white transition-colors duration-300" /> {item}
                     </li>
                   ))}
                 </ul>
-                <Button asChild variant="ghost" className="w-full group/btn">
+                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
                   <Link href="/services#web-development">
                     Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
@@ -205,23 +168,22 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-slate-100 dark:border-slate-800 group h-full flex flex-col relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:text-white transition-colors text-accent relative z-10">
-                  <Database className="w-7 h-7" />
+              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-accent transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col relative overflow-hidden">
+                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden relative z-10">
+                  <img src="/illustrations/custom-software.svg" alt="Custom Software" className="w-full h-36 object-contain p-2" />
                 </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground relative z-10">Custom Software</h4>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-1 relative z-10">
+                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300 relative z-10">Custom Software</h4>
+                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300 relative z-10">
                   Bespoke management systems built precisely for your workflow. No more fighting with generic SaaS tools.
                 </p>
                 <ul className="space-y-2 mb-8 relative z-10">
                   {['School Management', 'Hospital ERPs', 'POS Systems'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-accent" /> {item}
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
+                      <CheckCircle2 className="w-4 h-4 text-accent group-hover:text-white transition-colors duration-300" /> {item}
                     </li>
                   ))}
                 </ul>
-                <Button asChild variant="ghost" className="w-full group/btn relative z-10">
+                <Button asChild variant="ghost" className="w-full group/btn relative z-10 group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
                   <Link href="/services#software">
                     Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
@@ -230,22 +192,22 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
-                <div className="w-14 h-14 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-6 group-hover:bg-indigo-500 group-hover:text-white transition-colors text-indigo-500">
-                  <Bot className="w-7 h-7" />
+              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-indigo-500 transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
+                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
+                  <img src="/illustrations/ai-solutions.svg" alt="AI Solutions" className="w-full h-36 object-contain p-2" />
                 </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground">AI Solutions</h4>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 flex-1">
+                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">AI Solutions</h4>
+                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
                   Automate repetitive tasks and improve customer service with custom AI chatbots and workflow automation.
                 </p>
                 <ul className="space-y-2 mb-8">
                   {['Customer Support Bots', 'Workflow Automation', 'AI Agents'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-                      <CheckCircle2 className="w-4 h-4 text-indigo-500" /> {item}
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
+                      <CheckCircle2 className="w-4 h-4 text-indigo-500 group-hover:text-white transition-colors duration-300" /> {item}
                     </li>
                   ))}
                 </ul>
-                <Button asChild variant="ghost" className="w-full group/btn">
+                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
                   <Link href="/services#ai-solutions">
                     Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>

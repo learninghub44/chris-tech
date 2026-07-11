@@ -146,7 +146,7 @@ export default function Academy() {
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {courses.map((course, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group h-full">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300 group h-full">
                   <div className="flex justify-between items-start mb-6">
                     <div className={`w-14 h-14 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${course.color} shadow-inner`}>
                       {course.icon}

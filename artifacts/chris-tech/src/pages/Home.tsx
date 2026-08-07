@@ -1,9 +1,101 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowRight, Code, Bot, Cloud, CheckCircle2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
 import PageTransition from '@/components/layout/PageTransition';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '@/components/ui/carousel';
+
+const services = [
+  {
+    href: '/services#web-development',
+    image: '/illustrations/web-development.svg',
+    title: 'Web Development',
+    hoverClass: 'hover:bg-primary',
+    desc: 'High-performance corporate websites, e-commerce stores, and landing pages optimized for speed, SEO, and conversion.',
+    items: ['Business Websites', 'E-commerce Platforms', 'Portfolio Sites'],
+    iconClass: 'text-primary',
+  },
+  {
+    href: '/services#software',
+    image: '/illustrations/custom-software.svg',
+    title: 'Custom Software',
+    hoverClass: 'hover:bg-accent',
+    desc: 'Bespoke management systems built precisely for your workflow. No more fighting with generic SaaS tools.',
+    items: ['School Management', 'Hospital ERPs', 'POS Systems'],
+    iconClass: 'text-accent',
+  },
+  {
+    href: '/services#ai-solutions',
+    image: '/illustrations/ai-solutions.svg',
+    title: 'AI Solutions',
+    hoverClass: 'hover:bg-indigo-500',
+    desc: 'Automate repetitive tasks and improve customer service with custom AI chatbots and workflow automation.',
+    items: ['Customer Support Bots', 'Workflow Automation', 'AI Agents'],
+    iconClass: 'text-indigo-500',
+  },
+];
+
+function ServicesCarousel() {
+  const [api, setApi] = useState<CarouselApi>();
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
+  useEffect(() => {
+    if (!api) return;
+    autoplayRef.current = setInterval(() => {
+      api.scrollNext();
+    }, 3000);
+    return () => clearInterval(autoplayRef.current);
+  }, [api]);
+
+  return (
+    <Carousel
+      setApi={setApi}
+      opts={{ loop: true, align: 'start' }}
+      className="w-full"
+      onMouseEnter={() => clearInterval(autoplayRef.current)}
+      onMouseLeave={() => {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = setInterval(() => api?.scrollNext(), 3000);
+      }}
+    >
+      <CarouselContent>
+        {services.map((service, i) => (
+          <CarouselItem key={service.title} className="sm:basis-1/2 lg:basis-1/3">
+            <Reveal delay={0.1 * i}>
+              <div className={`bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl ${service.hoverClass} transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col`}>
+                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
+                  <img src={service.image} alt={service.title} className="w-full h-36 object-contain p-2" />
+                </div>
+                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">{service.title}</h4>
+                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
+                  {service.desc}
+                </p>
+                <ul className="space-y-2 mb-8">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
+                      <CheckCircle2 className={`w-4 h-4 ${service.iconClass} group-hover:text-white transition-colors duration-300`} /> {item}
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
+                  <Link href={service.href}>
+                    Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+              </div>
+            </Reveal>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+}
 
 export default function Home() {
   return (
@@ -73,11 +165,6 @@ export default function Home() {
                             <ArrowRight className="w-5 h-5 text-accent -rotate-45" />
                           </div>
                         </div>
-                        <div className="flex-1 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-4 flex items-end gap-2">
-                          {[40, 70, 45, 90, 65, 80, 55].map((h, i) => (
-                            <div key={i} className="flex-1 bg-gradient-to-t from-primary to-accent rounded-t-sm" style={{ height: `${h}%` }}></div>
-                          ))}
-                        </div>
                       </div>
                     </div>
 
@@ -115,16 +202,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-10 border-y border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50">
+      <section className="py-10 border-y border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 overflow-hidden">
         <div className="container mx-auto px-4">
           <p className="text-center text-sm font-medium text-slate-500 mb-8">POWERED BY INDUSTRY LEADING TECHNOLOGIES</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            {['React', 'Next.js', 'Node.js', 'Supabase', 'Cloudflare', 'PostgreSQL'].map((tech) => (
-              <div key={tech} className="text-xl font-display font-bold text-slate-800 dark:text-slate-300">
-                {tech}
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="relative flex overflow-hidden opacity-60 grayscale hover:grayscale-0 transition-all duration-500 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+          {[0, 1].map((dupe) => (
+            <div key={dupe} aria-hidden={dupe === 1} className="flex shrink-0 items-center gap-16 px-8 animate-[marquee_22s_linear_infinite]">
+              {['React', 'Next.js', 'Node.js', 'Supabase', 'Cloudflare', 'PostgreSQL'].map((tech) => (
+                <div key={tech} className="text-xl font-display font-bold text-slate-800 dark:text-slate-300 whitespace-nowrap">
+                  {tech}
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -142,79 +233,7 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Reveal delay={0.1}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-primary transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
-                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
-                  <img src="/illustrations/web-development.svg" alt="Web Development" className="w-full h-36 object-contain p-2" />
-                </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">Web Development</h4>
-                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
-                  High-performance corporate websites, e-commerce stores, and landing pages optimized for speed, SEO, and conversion.
-                </p>
-                <ul className="space-y-2 mb-8">
-                  {['Business Websites', 'E-commerce Platforms', 'Portfolio Sites'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
-                      <CheckCircle2 className="w-4 h-4 text-primary group-hover:text-white transition-colors duration-300" /> {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
-                  <Link href="/services#web-development">
-                    Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-accent transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col relative overflow-hidden">
-                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden relative z-10">
-                  <img src="/illustrations/custom-software.svg" alt="Custom Software" className="w-full h-36 object-contain p-2" />
-                </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300 relative z-10">Custom Software</h4>
-                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300 relative z-10">
-                  Bespoke management systems built precisely for your workflow. No more fighting with generic SaaS tools.
-                </p>
-                <ul className="space-y-2 mb-8 relative z-10">
-                  {['School Management', 'Hospital ERPs', 'POS Systems'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
-                      <CheckCircle2 className="w-4 h-4 text-accent group-hover:text-white transition-colors duration-300" /> {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="ghost" className="w-full group/btn relative z-10 group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
-                  <Link href="/services#software">
-                    Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.3}>
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:bg-indigo-500 transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col">
-                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
-                  <img src="/illustrations/ai-solutions.svg" alt="AI Solutions" className="w-full h-36 object-contain p-2" />
-                </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">AI Solutions</h4>
-                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
-                  Automate repetitive tasks and improve customer service with custom AI chatbots and workflow automation.
-                </p>
-                <ul className="space-y-2 mb-8">
-                  {['Customer Support Bots', 'Workflow Automation', 'AI Agents'].map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
-                      <CheckCircle2 className="w-4 h-4 text-indigo-500 group-hover:text-white transition-colors duration-300" /> {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
-                  <Link href="/services#ai-solutions">
-                    Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
-          </div>
+          <ServicesCarousel />
           
           <div className="mt-12 text-center">
             <Button asChild size="lg" className="rounded-full shadow-md">
@@ -226,7 +245,7 @@ export default function Home() {
         </div>
       </AnimatedSection>
 
-      {/* Stats / Expertise bars — matches jrmhd.tech's "years of experience" progress section */}
+      {/* Expertise highlights */}
       <AnimatedSection className="bg-white dark:bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -239,25 +258,20 @@ export default function Home() {
                 From website and software development to AI integrations and cloud infrastructure, we deliver results-driven engineering to help your business grow.
               </p>
 
-              <div className="space-y-6">
+              <div className="flex flex-wrap gap-3">
                 {[
-                  { label: 'Web Development', value: 95 },
-                  { label: 'Custom Software', value: 90 },
-                  { label: 'AI & Automation', value: 85 },
-                  { label: 'Cloud & Hosting', value: 88 },
-                ].map((skill, i) => (
-                  <div key={skill.label}>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold text-sm text-foreground">{skill.label}</span>
-                      <span className="font-semibold text-sm text-primary">{skill.value}%</span>
-                    </div>
-                    <div className="h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-1000"
-                        style={{ width: `${skill.value}%` }}
-                      />
-                    </div>
-                  </div>
+                  'Web Development',
+                  'Custom Software',
+                  'AI & Automation',
+                  'Cloud & Hosting',
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm font-semibold text-sm text-foreground"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    {skill}
+                  </span>
                 ))}
               </div>
             </Reveal>

@@ -149,4 +149,36 @@
   }
 
   body {
-    @apply font-sans antialiased bg-backgroun
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--app-font-display);
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-lg border border-white/20 dark:border-slate-800/50 shadow-lg;
+  }
+
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 shadow-xl;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+
+  .bg-mesh {
+    background-image: 
+      radial-gradient(at 40% 20%, hsla(221,83%,53%,0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(199,89%,60%,0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(221,83%,53%,0.15) 0px, transparent 50%);
+  }
+                            }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Boogaloo&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -98,7 +98,7 @@
   --ring: 221 83% 53%;
   
   --app-font-sans: 'Inter', sans-serif;
-  --app-font-display: 'Poppins', sans-serif;
+  --app-font-display: 'Boogaloo', 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   
@@ -163,6 +163,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--app-font-display);
+    letter-spacing: 0.01em;
   }
 }
 

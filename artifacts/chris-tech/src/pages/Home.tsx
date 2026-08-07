@@ -1,15 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'wouter';
 import { ArrowRight, Code, Bot, Cloud, CheckCircle2, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
+import { AutoCarousel } from '@/components/ui/auto-carousel';
 import PageTransition from '@/components/layout/PageTransition';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from '@/components/ui/carousel';
 
 const services = [
   {
@@ -42,58 +37,34 @@ const services = [
 ];
 
 function ServicesCarousel() {
-  const [api, setApi] = useState<CarouselApi>();
-  const autoplayRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
-
-  useEffect(() => {
-    if (!api) return;
-    autoplayRef.current = setInterval(() => {
-      api.scrollNext();
-    }, 3000);
-    return () => clearInterval(autoplayRef.current);
-  }, [api]);
-
   return (
-    <Carousel
-      setApi={setApi}
-      opts={{ loop: true, align: 'start' }}
-      className="w-full"
-      onMouseEnter={() => clearInterval(autoplayRef.current)}
-      onMouseLeave={() => {
-        clearInterval(autoplayRef.current);
-        autoplayRef.current = setInterval(() => api?.scrollNext(), 3000);
-      }}
-    >
-      <CarouselContent>
-        {services.map((service, i) => (
-          <CarouselItem key={service.title} className="sm:basis-1/2 lg:basis-1/3">
-            <Reveal delay={0.1 * i}>
-              <div className={`bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl ${service.hoverClass} transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col`}>
-                <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
-                  <img src={service.image} alt={service.title} className="w-full h-36 object-contain p-2" />
-                </div>
-                <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">{service.title}</h4>
-                <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
-                  {service.desc}
-                </p>
-                <ul className="space-y-2 mb-8">
-                  {service.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
-                      <CheckCircle2 className={`w-4 h-4 ${service.iconClass} group-hover:text-white transition-colors duration-300`} /> {item}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
-                  <Link href={service.href}>
-                    Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-    </Carousel>
+    <AutoCarousel itemClassName="sm:basis-1/2 lg:basis-1/3">
+      {services.map((service, i) => (
+        <Reveal key={service.title} delay={0.1 * i}>
+          <div className={`bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm hover:shadow-xl ${service.hoverClass} transition-all duration-300 border border-slate-100 dark:border-slate-800 group h-full flex flex-col`}>
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-800 group-hover:bg-white/95 transition-colors duration-300 mb-6 overflow-hidden">
+              <img src={service.image} alt={service.title} className="w-full h-36 object-contain p-2" />
+            </div>
+            <h4 className="text-2xl font-display font-bold mb-3 text-foreground group-hover:text-white transition-colors duration-300">{service.title}</h4>
+            <p className="text-slate-600 dark:text-slate-400 group-hover:text-white/90 mb-6 flex-1 transition-colors duration-300">
+              {service.desc}
+            </p>
+            <ul className="space-y-2 mb-8">
+              {service.items.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 group-hover:text-white/90 transition-colors duration-300">
+                  <CheckCircle2 className={`w-4 h-4 ${service.iconClass} group-hover:text-white transition-colors duration-300`} /> {item}
+                </li>
+              ))}
+            </ul>
+            <Button asChild variant="ghost" className="w-full group/btn group-hover:text-white group-hover:hover:bg-white/15 transition-colors duration-300">
+              <Link href={service.href}>
+                Explore Service <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+          </div>
+        </Reveal>
+      ))}
+    </AutoCarousel>
   );
 }
 

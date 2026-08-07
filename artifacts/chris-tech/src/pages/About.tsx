@@ -1,10 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import {
   Target, Lightbulb, Users, ShieldCheck, Globe2, Headphones, Award, HeartHandshake,
   Sparkles, Layers, TrendingUp, Code2, Database, Palette, Server, Megaphone
 } from 'lucide-react';
 import { Reveal, AnimatedSection } from '@/components/ui/animations';
+import { AutoCarousel } from '@/components/ui/auto-carousel';
 import PageTransition from '@/components/layout/PageTransition';
 
 const stats = [
@@ -15,12 +15,12 @@ const stats = [
 ];
 
 const expertise = [
-  { icon: <Code2 className="w-5 h-5" />, label: "Web Development", value: 95 },
-  { icon: <Database className="w-5 h-5" />, label: "Custom Software & ERPs", value: 90 },
-  { icon: <Sparkles className="w-5 h-5" />, label: "AI Solutions & Automation", value: 88 },
-  { icon: <Server className="w-5 h-5" />, label: "Cloud & DevOps", value: 86 },
-  { icon: <Palette className="w-5 h-5" />, label: "UI/UX Design", value: 85 },
-  { icon: <Megaphone className="w-5 h-5" />, label: "SEO & Digital Marketing", value: 80 },
+  { icon: <Code2 className="w-5 h-5" />, label: "Web Development" },
+  { icon: <Database className="w-5 h-5" />, label: "Custom Software & ERPs" },
+  { icon: <Sparkles className="w-5 h-5" />, label: "AI Solutions & Automation" },
+  { icon: <Server className="w-5 h-5" />, label: "Cloud & DevOps" },
+  { icon: <Palette className="w-5 h-5" />, label: "UI/UX Design" },
+  { icon: <Megaphone className="w-5 h-5" />, label: "SEO & Digital Marketing" },
 ];
 
 const whyUs = [
@@ -112,7 +112,7 @@ export default function About() {
             </Reveal>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <AutoCarousel itemClassName="sm:basis-1/2 lg:basis-1/4">
             {[
               { icon: <Target className="w-8 h-8"/>, title: "Impact Over Output", desc: "We don't just ship features. We ship solutions that solve specific business problems." },
               { icon: <Lightbulb className="w-8 h-8"/>, title: "Continuous Innovation", desc: "We constantly research and adopt the latest proven technologies, like edge computing and AI." },
@@ -129,11 +129,11 @@ export default function About() {
                 </div>
               </Reveal>
             ))}
-          </div>
+          </AutoCarousel>
         </div>
       </AnimatedSection>
 
-      {/* Expertise bars */}
+      {/* Expertise highlights */}
       <AnimatedSection className="bg-white dark:bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-16">
@@ -143,27 +143,13 @@ export default function About() {
             </Reveal>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+          <div className="flex flex-wrap justify-center gap-3">
             {expertise.map((e, i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2 text-foreground font-semibold text-sm">
-                      <span className="text-primary">{e.icon}</span>
-                      {e.label}
-                    </div>
-                    <span className="text-sm font-bold text-primary">{e.value}%</span>
-                  </div>
-                  <div className="h-2.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${e.value}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    />
-                  </div>
-                </div>
+                <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm font-semibold text-sm text-foreground">
+                  <span className="text-primary">{e.icon}</span>
+                  {e.label}
+                </span>
               </Reveal>
             ))}
           </div>

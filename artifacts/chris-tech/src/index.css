@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Boogaloo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -97,8 +97,8 @@
   --input: 214 32% 91%;
   --ring: 221 83% 53%;
   
-  --app-font-sans: 'Inter', sans-serif;
-  --app-font-display: 'Boogaloo', 'Inter', sans-serif;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-display: 'DM Sans', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: Menlo, monospace;
   
@@ -163,7 +163,6 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--app-font-display);
-    letter-spacing: 0.01em;
   }
 }
 

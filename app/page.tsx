@@ -42,6 +42,7 @@ import SmartAdaptiveTradingTab from "@/components/tabs/smart-adaptive-trading"
 import { RiskDisclaimerModal } from "@/components/modals/risk-disclaimer-modal"
 import { MarketSelector } from "@/components/market-selector"
 import { WelcomeHero } from "@/components/welcome-hero"
+import { SocialAffiliateLinks } from "@/components/social-affiliate-links"
 import { FloatingAIScanner } from "@/components/floating-ai-scanner"
 import {
   Dialog,
@@ -175,11 +176,11 @@ export default function DerivAnalysisApp() {
             <div className="flex items-center justify-between h-16 sm:h-20">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-black text-sm sm:text-base ${theme === "dark" ? "bg-blue-600 text-white" : "bg-blue-600 text-white"}`}>
-                  P
+                  CT
                 </div>
                 <div className="flex flex-col leading-tight">
                   <h1 className={`text-base sm:text-lg font-bold tracking-tight ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
-                    ProfitHub
+                    CHRIS TECH
                   </h1>
                   <h2 className={`text-[9px] sm:text-[10px] font-medium tracking-wide opacity-60 uppercase ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
                     Trading
@@ -206,9 +207,10 @@ export default function DerivAnalysisApp() {
         </main>
 
         <footer className={`py-6 sm:py-8 border-t ${theme === "dark" ? "bg-[#0a0a0a] border-white/8" : "bg-gray-50 border-gray-200"}`}>
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-4 text-center">
+            <SocialAffiliateLinks theme={theme} variant="row" />
             <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-500" : "text-gray-600"}`}>
-              © 2026 ProfitHub. Trading involves risk.
+              © 2026 CHRIS TECH. Trading involves risk.
             </p>
           </div>
         </footer>
@@ -235,11 +237,11 @@ export default function DerivAnalysisApp() {
                 <div className="flex items-center shrink-0 min-w-[140px] sm:min-w-[200px]">
                   <div className="flex items-center gap-2 sm:gap-3">
                     <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center font-black text-sm sm:text-base ${theme === "dark" ? "bg-blue-600 text-white" : "bg-blue-600 text-white"}`}>
-                      P
+                      CT
                     </div>
                     <div className="flex flex-col leading-tight">
                       <h1 className={`text-base sm:text-lg font-bold tracking-tight ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
-                        ProfitHub
+                        CHRIS TECH
                       </h1>
                       <h2 className={`text-[9px] sm:text-[10px] font-medium tracking-wide opacity-60 uppercase ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
                         Trading
@@ -779,14 +781,14 @@ export default function DerivAnalysisApp() {
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${theme === "dark" ? "bg-blue-600 text-white" : "bg-blue-600 text-white"}`}>
-                    P
+                    CT
                   </div>
                   <span className={`font-semibold tracking-tight ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
-                    ProfitHub
+                    CHRIS TECH
                   </span>
                 </div>
                 <p className={`text-xs sm:text-sm ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
-                  Real-time trading analysis and signals
+                  Real-time trading analysis and signals, built by Chris Tech
                 </p>
               </div>
 
@@ -810,11 +812,14 @@ export default function DerivAnalysisApp() {
                     Support
                   </a>
                 </div>
+
+                {/* Social & Affiliate Links */}
+                <SocialAffiliateLinks theme={theme} variant="row" />
               </div>
             </div>
 
             <div className={`mt-6 sm:mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm ${theme === "dark" ? "border-white/8 text-gray-500" : "border-gray-200 text-gray-500"}`}>
-              <p>© 2026 ProfitHub. All rights reserved.</p>
+              <p>© 2026 CHRIS TECH. All rights reserved.</p>
               <p>Trading involves risk. Please read our risk disclaimer.</p>
             </div>
           </div>
@@ -853,6 +858,7 @@ export default function DerivAnalysisApp() {
       <RiskDisclaimerModal
         isOpen={isDisclaimerOpen}
         onClose={() => setIsDisclaimerOpen(false)}
+        onAccept={() => setIsDisclaimerOpen(false)}
         theme={theme}
       />
 

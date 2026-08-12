@@ -46,10 +46,10 @@ export const UnifiedTradingDashboard: React.FC = () => {
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-            <span className="text-2xl font-bold text-white">P</span>
+            <span className="text-2xl font-bold text-white">CT</span>
           </div>
           <div>
-            <h1 className="text-3xl font-bold glow-text-blue">Profit Hub</h1>
+            <h1 className="text-3xl font-bold glow-text-blue">Chris Tech</h1>
             <p className="text-sm text-text-tertiary">Advanced Trading Engine</p>
           </div>
         </div>

@@ -215,7 +215,7 @@ export function AccountAnalytics({ theme = "dark" }: AccountAnalyticsProps) {
                                         <YAxis tick={{ fill: "#4b5563", fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v}`} />
                                         <Tooltip
                                             contentStyle={{ background: "#111", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, fontSize: 11 }}
-                                            formatter={(v: number) => [`$${v.toFixed(2)}`, "Net P&L"]}
+                                            formatter={(v: number | undefined) => [`$${(v ?? 0).toFixed(2)}`, "Net P&L"]}
                                         />
                                         <Bar dataKey="pnl" radius={[6, 6, 0, 0]} maxBarSize={40}>
                                             {strategyData.slice(0, 8).map((entry, idx) => (

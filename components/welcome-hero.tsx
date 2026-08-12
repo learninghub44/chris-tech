@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { ArrowRight, BarChart3, Zap, Activity } from "lucide-react"
+import { SocialAffiliateLinks } from "@/components/social-affiliate-links"
 
 interface WelcomeHeroProps {
   theme?: "light" | "dark"
@@ -28,7 +29,7 @@ export function WelcomeHero({ theme = "dark", onGetStarted }: WelcomeHeroProps) 
               backgroundColor: theme === "dark" ? "rgba(59, 130, 246, 0.05)" : "rgba(59, 130, 246, 0.05)"
             }}>
             <span className={`text-xs sm:text-sm font-semibold ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}>
-              Professional Trading Analysis Platform
+              CHRIS TECH — Professional Trading Analysis Platform
             </span>
           </div>
 
@@ -38,12 +39,15 @@ export function WelcomeHero({ theme = "dark", onGetStarted }: WelcomeHeroProps) 
           </h1>
 
           {/* Subheading */}
-          <p className={`text-lg sm:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+          <p className={`text-lg sm:text-xl mb-4 max-w-3xl mx-auto leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
             Advanced analytics for Deriv markets. Track real-time data, analyze digit patterns, and execute smarter trades with professional-grade signals and insights.
+          </p>
+          <p className={`text-sm sm:text-base mb-8 sm:mb-12 font-semibold ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}>
+            Built and maintained by Chris Tech.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
             <Button
               onClick={onGetStarted}
               className={`px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg inline-flex items-center gap-2 transition-all ${theme === "dark"
@@ -61,6 +65,11 @@ export function WelcomeHero({ theme = "dark", onGetStarted }: WelcomeHeroProps) 
             >
               Learn More
             </Button>
+          </div>
+
+          {/* Social & Affiliate */}
+          <div className="flex justify-center">
+            <SocialAffiliateLinks theme={theme} variant="card" className="max-w-md w-full" />
           </div>
         </div>
 

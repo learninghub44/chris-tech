@@ -8,12 +8,15 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Missing credentials" }, { status: 400 })
         }
 
-        // Hardcode admin verify to avoid SQLite breaking on Vercel deployment
-        // Make it robust to copy-paste trailing spaces and case sensitivity
+        // Admin credentials are read from environment variables.
+        // Falls back to a default only if ADMIN_USERNAME/ADMIN_PASSWORD are not set — change these in production.
         const cleanUser = username.trim().toLowerCase()
         const cleanPass = password.trim()
 
-        const isValid = cleanUser === "admin" && cleanPass === "Dtool@2026"
+        const envUser = (process.env.ADMIN_USERNAME || "admin").trim().toLowerCase()
+        const envPass = (process.env.ADMIN_PASSWORD || "ChangeMe123!").trim()
+
+        const isValid = cleanUser === envUser && cleanPass === envPass
 
         if (!isValid) {
             console.log(`[Login Failed] Invalid attempt. User: '${username}', Pass length: ${password.length}`)

@@ -183,7 +183,7 @@ export default function AdminDashboard() {
 
                   <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
                     <h3 className="font-bold text-white mb-2">Support</h3>
-                    <p className="text-sm text-gray-400">Email: mbuguabenson2020@gmail.com | WhatsApp: +254757722344</p>
+                    <p className="text-sm text-gray-400">Contact Chris Tech via WhatsApp or Telegram (see footer links)</p>
                   </div>
                 </div>
               </CardContent>

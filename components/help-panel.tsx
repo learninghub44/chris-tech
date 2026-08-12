@@ -5,6 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MessageCircle, Download, FileText, Bot } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { SOCIAL_LINKS } from "@/components/social-affiliate-links"
 
 interface BotFile {
   id: string
@@ -17,7 +18,7 @@ interface BotFile {
 
 export function HelpPanel() {
   const openWhatsApp = () => {
-    window.open("https://wa.me/254757722344", "_blank")
+    window.open(SOCIAL_LINKS.whatsapp, "_blank")
   }
 
   const bots: BotFile[] = [
@@ -360,11 +361,11 @@ export function HelpPanel() {
         <CardContent className="space-y-3">
           <div className="flex items-center gap-3 text-white">
             <Phone className="h-5 w-5 text-green-400" />
-            <span>+254757722344</span>
+            <span>Chris Tech WhatsApp (see link below)</span>
           </div>
           <div className="flex items-center gap-3 text-white">
             <Mail className="h-5 w-5 text-blue-400" />
-            <span>mbuguabenson2020@gmail.com</span>
+            <span>Contact Chris Tech via Telegram or WhatsApp</span>
           </div>
           <Button onClick={openWhatsApp} className="w-full bg-green-500 hover:bg-green-600 text-white">
             <MessageCircle className="h-4 w-4 mr-2" />

@@ -115,8 +115,10 @@ export function initializeDatabase(dbPath: string): Database.Database {
   // Seed initial admin if none exists
   const adminCount = db.prepare("SELECT COUNT(*) as count FROM admins").get() as any
   if (adminCount.count === 0) {
-    db.prepare("INSERT INTO admins (username, password) VALUES (?, ?)").run("admin", "Dtool@2026")
-    console.log("[DB] Initial admin account seeded: admin / Dtool@2026")
+    const seedUsername = process.env.ADMIN_USERNAME || "admin"
+    const seedPassword = process.env.ADMIN_PASSWORD || "ChangeMe123!"
+    db.prepare("INSERT INTO admins (username, password) VALUES (?, ?)").run(seedUsername, seedPassword)
+    console.log(`[DB] Initial admin account seeded: ${seedUsername} (password set from ADMIN_PASSWORD env or default — change it)`)
   }
 
   return db
@@ -463,7 +465,7 @@ export function verifyAdmin(username: string, password: string): any {
   if (!db) {
     // Vercel / Production Bypass Fallback
     const fallbackUsername = process.env.ADMIN_USERNAME || 'admin'
-    const fallbackPassword = process.env.ADMIN_PASSWORD || 'Dtool@2026'
+    const fallbackPassword = process.env.ADMIN_PASSWORD || 'ChangeMe123!'
 
     if (username === fallbackUsername && password === fallbackPassword) {
       return { id: 1, username: fallbackUsername, role: 'superadmin' }

@@ -10,9 +10,10 @@
  * - Derivatives Base (optional): https://github.com/deriv-com/derivatives
  */
 
-export const DERIV_APP_ID = "123189"
-export const OAUTH_CLIENT_ID = "32EtOUHbr4zUOcHKwjgwj"
-export const DERIV_REDIRECT_URL = typeof window !== "undefined" ? window.location.origin : ""
+export const DERIV_APP_ID = "34t6D3VOm0Kv3LadCeJjL"
+export const OAUTH_CLIENT_ID = "34t6D3VOm0Kv3LadCeJjL"
+// Must exactly match the redirect URL registered for the OAuth app on Deriv
+export const DERIV_REDIRECT_URL = "https://tradehub.christech.co.ke/callback"
 
 export const DERIV_CONFIG = {
   APP_ID: DERIV_APP_ID,

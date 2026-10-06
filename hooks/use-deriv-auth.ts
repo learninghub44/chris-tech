@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react"
 import { DerivWebSocketManager } from "@/lib/deriv-websocket-manager"
-import { DERIV_CONFIG, DERIV_API, OAUTH_CLIENT_ID } from "@/lib/deriv-config"
-import { generateCodeVerifier, generateCodeChallenge, generateState } from "@/lib/pkce"
+import { DERIV_REDIRECT_URL } from "@/lib/deriv-config"
+import { startDerivLogin } from "@/lib/deriv-login"
 
 interface Balance {
   amount: number
@@ -161,7 +161,7 @@ export function useDerivAuth() {
           body: JSON.stringify({
             code,
             code_verifier: codeVerifier,
-            redirect_uri: window.location.origin
+            redirect_uri: DERIV_REDIRECT_URL
           })
         })
 
@@ -286,33 +286,7 @@ export function useDerivAuth() {
     setShowTokenModal(true)
   }
 
-  const loginWithDeriv = async () => {
-    if (typeof window === "undefined") return
-    
-    // Modern OAuth 2.0 PKCE Flow
-    const verifier = generateCodeVerifier()
-    const challenge = await generateCodeChallenge(verifier)
-    const state = generateState()
-
-    sessionStorage.setItem('pkce_code_verifier', verifier)
-    sessionStorage.setItem('oauth_state', state)
-
-    const redirectUri = window.location.origin
-    const oauthUrl = new URL(DERIV_API.OAUTH)
-    
-    oauthUrl.searchParams.set('response_type', 'code')
-    oauthUrl.searchParams.set('client_id', OAUTH_CLIENT_ID)
-    oauthUrl.searchParams.set('redirect_uri', redirectUri)
-    oauthUrl.searchParams.set('scope', 'trade')
-    oauthUrl.searchParams.set('state', state)
-    oauthUrl.searchParams.set('code_challenge', challenge)
-    oauthUrl.searchParams.set('code_challenge_method', 'S256')
-    
-    // Optional: add app_id for legacy support if needed
-    oauthUrl.searchParams.set('app_id', DERIV_CONFIG.APP_ID)
-
-    window.location.href = oauthUrl.toString()
-  }
+  const loginWithDeriv = () => startDerivLogin()
 
   const requestLogin = () => {
     loginWithDeriv()

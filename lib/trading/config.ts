@@ -2,7 +2,7 @@
 import { z } from "zod"
 
 const configSchema = z.object({
-  DERIV_APP_ID: z.string().default("123189"),
+  DERIV_APP_ID: z.string().default("34t6D3VOm0Kv3LadCeJjL"),
   DERIV_API_TOKEN: z.string(),
   WS_URL: z.string().default("wss://ws.binaryws.com/websockets/v3"),
   EXECUTION_MODE: z.enum(["demo", "live"]).default("demo"),

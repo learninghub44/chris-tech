@@ -64,7 +64,7 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
     if (!globalAPIClient) {
       console.log("[v0] Initializing baseline DerivAPIClient")
       globalAPIClient = new DerivAPIClient({
-        appId: String(DERIV_APP_ID || "123189"),
+        appId: String(DERIV_APP_ID || "34t6D3VOm0Kv3LadCeJjL"),
       })
       
       globalAPIClient.setErrorCallback((err) => {

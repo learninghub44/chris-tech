@@ -28,6 +28,7 @@ export function useDerivAuthState() {
   const [activeLoginId, setActiveLoginId] = useState<string | null>(null)
   const activeLoginIdRef = useRef<string | null>(null)
   const [isInitializing, setIsInitializing] = useState(true)
+  const [authError, setAuthError] = useState<string | null>(null)
   const [showApprovalModal, setShowApprovalModal] = useState(false)
   const [showTokenModal, setShowTokenModal] = useState(false)
   const [balanceSubscribed, setBalanceSubscribed] = useState(false)
@@ -243,6 +244,7 @@ export function useDerivAuthState() {
     }
 
     try {
+      setAuthError(null)
       derivREST.setToken(apiToken)
       const list = (await derivREST.getAccounts()).map(normalizeAccount)
       if (list.length === 0) throw new Error("No Deriv trading accounts found for this login")
@@ -254,6 +256,7 @@ export function useDerivAuthState() {
       console.log("[v0] ✅ Session established:", target.id, `(${target.type})`)
     } catch (e: any) {
       console.error("[v0] ❌ Session setup failed:", e?.message || e)
+      setAuthError(`Login failed: ${e?.message || e}${e?.status ? ` (HTTP ${e.status})` : ""}`)
       if (e?.status === 401 || e?.status === 403) {
         clearSession()
         setShowTokenModal(true)
@@ -316,6 +319,7 @@ export function useDerivAuthState() {
     token,
     isLoggedIn,
     isInitializing,
+    authError,
     isAuthenticated: isLoggedIn,
     loginWithDeriv,
     requestLogin,

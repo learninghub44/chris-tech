@@ -20,6 +20,7 @@ export function DerivAuth({ theme = "dark" }: DerivAuthProps) {
     accounts,
     switchAccount,
     activeLoginId,
+    authError,
   } = useDerivAPI()
 
   const [customUsername, setCustomUsername] = useState<string>("")
@@ -99,6 +100,9 @@ export function DerivAuth({ theme = "dark" }: DerivAuthProps) {
 
   return (
     <>
+      {!isLoggedIn && authError && (
+        <span className="max-w-[220px] truncate text-[10px] font-semibold text-red-400" title={authError}>{authError}</span>
+      )}
       {!isLoggedIn && (
         <div className="flex items-center gap-2">
           <Button

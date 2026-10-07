@@ -11,6 +11,9 @@ export async function startDerivLogin(): Promise<void> {
 
   sessionStorage.setItem("pkce_code_verifier", verifier)
   sessionStorage.setItem("oauth_state", state)
+  // localStorage fallback: some browsers drop sessionStorage across the external redirect
+  localStorage.setItem("pkce_code_verifier", verifier)
+  localStorage.setItem("oauth_state", state)
 
   const url = new URL(DERIV_API.OAUTH)
   url.searchParams.set("response_type", "code")

@@ -25,6 +25,7 @@ interface DerivAPIContextType {
   isConnected: boolean
   isAuthorized: boolean
   isInitializing: boolean
+  authError: string | null
   error: string | null
   connectionStatus: "disconnected" | "connecting" | "connected" | "reconnecting"
   // Auth properties from useDerivAuth
@@ -130,6 +131,7 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
         isConnected,
         isAuthorized,
         isInitializing,
+        authError: auth.authError,
         error,
         connectionStatus,
         token: auth.token,
@@ -162,6 +164,7 @@ export function useDerivAPI() {
       isConnected: false,
       isAuthorized: false,
       isInitializing: false,
+      authError: null,
       error: "Context not found",
       connectionStatus: "disconnected",
       token: "",

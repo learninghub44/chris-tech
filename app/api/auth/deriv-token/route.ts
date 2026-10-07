@@ -19,6 +19,8 @@ export async function POST(request: Request) {
       code_verifier,
       redirect_uri,
     });
+    // Only if the Deriv OAuth client was registered as confidential
+    if (process.env.DERIV_CLIENT_SECRET) payload.set('client_secret', process.env.DERIV_CLIENT_SECRET);
 
     const response = await fetch(DERIV_API.TOKEN, {
       method: 'POST',
@@ -33,14 +35,14 @@ export async function POST(request: Request) {
     if (!response.ok) {
       console.error('[v0] Token exchange failed:', data);
       return NextResponse.json(
-        { error: data.error || 'Token exchange failed' },
+        { error: data.error || 'Token exchange failed', error_description: data.error_description },
         { status: response.status }
       );
     }
 
     // Return the tokens to the client
     return NextResponse.json({
-      access_token: data.access_token,
+      access_token: data.access_token ?? data.data?.access_token,
       expires_in: data.expires_in,
       token_type: data.token_type,
     });

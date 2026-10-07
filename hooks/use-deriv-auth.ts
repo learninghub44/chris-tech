@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { createContext, useContext, useEffect, useState, useRef } from "react"
 import { DerivWebSocketManager } from "@/lib/deriv-websocket-manager"
 import { DERIV_REDIRECT_URL, DERIV_API, DERIV_CONFIG } from "@/lib/deriv-config"
 import { derivREST } from "@/lib/deriv-rest-client"
@@ -18,7 +18,7 @@ interface Account {
   balance: number
 }
 
-export function useDerivAuth() {
+export function useDerivAuthState() {
   const [token, setToken] = useState<string>("")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [balance, setBalance] = useState<Balance | null>(null)
@@ -331,4 +331,17 @@ export function useDerivAuth() {
     submitApiToken,
     openTokenSettings,
   }
+}
+
+// ── Single shared auth instance ──────────────────────────────────────────────
+// useDerivAuthState() must run exactly once (in DerivAPIProvider). Every other
+// component calls useDerivAuth() and reads that same state, so OAuth code exchange,
+// OTP sessions and the WebSocket are never set up twice.
+export type DerivAuthValue = ReturnType<typeof useDerivAuthState>
+export const DerivAuthContext = createContext<DerivAuthValue | null>(null)
+
+export function useDerivAuth(): DerivAuthValue {
+  const ctx = useContext(DerivAuthContext)
+  if (!ctx) throw new Error("useDerivAuth must be used within DerivAPIProvider")
+  return ctx
 }

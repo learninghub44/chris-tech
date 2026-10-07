@@ -24,7 +24,7 @@ export class DerivRESTClient {
     }
 
     private async request(path: string, options: RequestInit = {}): Promise<any> {
-        const url = `${DERIV_API.REST_BASE}${path}`
+        const url = typeof window !== "undefined" ? `/api/deriv/rest${path}` : `${DERIV_API.REST_BASE}${path}`
         const headers = new Headers(options.headers || {})
 
         headers.set("Deriv-App-ID", this.appId)

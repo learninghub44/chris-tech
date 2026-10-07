@@ -5,7 +5,7 @@ import React from "react"
 import { createContext, useContext, useEffect, useState, useRef } from "react"
 import { DerivAPIClient } from "./deriv-api"
 import { DERIV_APP_ID } from "./deriv-config"
-import { useDerivAuth } from "@/hooks/use-deriv-auth"
+import { useDerivAuthState, DerivAuthContext } from "@/hooks/use-deriv-auth"
 import { DerivWebSocketManager } from "./deriv-websocket-manager"
 
 interface Balance {
@@ -56,7 +56,7 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
   >("disconnected")
   const clientRef = useRef<DerivAPIClient | null>(null)
   const initAttemptRef = useRef(0)
-  const auth = useDerivAuth()
+  const auth = useDerivAuthState()
   const { token, isLoggedIn, isInitializing } = auth
 
   useEffect(() => {
@@ -123,6 +123,7 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
   }, [token, isLoggedIn])
 
   return (
+    <DerivAuthContext.Provider value={auth}>
     <DerivAPIContext.Provider
       value={{
         apiClient,
@@ -147,6 +148,7 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
     >
       {children}
     </DerivAPIContext.Provider>
+    </DerivAuthContext.Provider>
   )
 }
 

@@ -97,6 +97,11 @@ export class DerivWebSocketManager {
   private readonly appId = DERIV_CONFIG.APP_ID
   private currentWsUrl: string = `${DERIV_API.WEBSOCKET}?app_id=${DERIV_CONFIG.APP_ID}&l=en&brand=deriv`
 
+  // When set, reconnects fetch a fresh single-use OTP URL instead of reusing a spent one
+  private urlProvider: (() => Promise<string>) | null = null
+
+  public setUrlProvider(fn: (() => Promise<string>) | null) { this.urlProvider = fn }
+
   private constructor() { }
 
   public static getInstance(): DerivWebSocketManager {
@@ -113,7 +118,21 @@ export class DerivWebSocketManager {
   // ─── Connection ────────────────────────────────────────────────────────────
 
   public async connect(url?: string, force = false): Promise<void> {
+    if (!url && !force && this.ws) {
+      const st = this.ws.readyState
+      if (st === WebSocket.OPEN) return Promise.resolve()
+      if (st === WebSocket.CONNECTING && this.connectionPromise) return this.connectionPromise
+    }
+
     const targetUrl = url || this.currentWsUrl
+
+    if (force && this.ws && this.ws.readyState <= WebSocket.OPEN) {
+      // Superseded socket: its close handler must not trigger a reconnect
+      const old = this.ws
+      this.ws = null
+      this.connectionPromise = null
+      try { old.close() } catch { /* noop */ }
+    }
 
     if (!force && this.ws) {
       const state = this.ws.readyState
@@ -139,7 +158,8 @@ export class DerivWebSocketManager {
         this.notifyConnectionStatus("reconnecting")
 
         // Create raw WebSocket
-        this.ws = new WebSocket(this.currentWsUrl)
+        const ws = new WebSocket(this.currentWsUrl)
+        this.ws = ws
 
         // Wrap with DerivAPIBasic (the bundle uses CommonJS exports)
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -168,7 +188,8 @@ export class DerivWebSocketManager {
           this.startHeartbeat()
           this.processMessageQueue()
           this.connectionPromise = null
-          this.tryAutoAuthorize()
+          this.isAuthorized = !!this.urlProvider
+          if (!this.urlProvider) this.tryAutoAuthorize()
           resolve()
         })
 
@@ -182,7 +203,8 @@ export class DerivWebSocketManager {
           }
         })
 
-        this.ws.addEventListener('error', (error) => {
+        ws.addEventListener('error', (error) => {
+          if (this.ws !== ws) return
           clearTimeout(connectionTimeout)
           console.error("[v0] WebSocket error:", error)
           this.log("error", `WebSocket error: ${error}`)
@@ -192,7 +214,8 @@ export class DerivWebSocketManager {
           reject(error)
         })
 
-        this.ws.addEventListener('close', () => {
+        ws.addEventListener('close', () => {
+          if (this.ws !== ws) return
           clearTimeout(connectionTimeout)
           console.log("[v0] WebSocket closed, reconnecting…")
           this.log("warning", "WebSocket closed, reconnecting…")
@@ -263,8 +286,8 @@ export class DerivWebSocketManager {
       return
     }
     
-    // Switch to fallback URL if primary fails after 3 attempts
-    if (this.reconnectAttempts === 3 && this.currentWsUrl.includes("api.derivws.com")) {
+    // Switch to fallback URL if primary fails after 3 attempts (never for OTP sessions)
+    if (!this.urlProvider && this.reconnectAttempts === 3 && this.currentWsUrl.includes("api.derivws.com")) {
       console.log("[v0] Switching to fallback WebSocket URL due to repeated failures")
       this.currentWsUrl = `${DERIV_API.WEBSOCKET_FALLBACK_V3}?app_id=${DERIV_CONFIG.APP_ID}&l=en&brand=deriv`
     }
@@ -272,8 +295,14 @@ export class DerivWebSocketManager {
     this.reconnectAttempts++
     const delay = this.reconnectDelay * Math.pow(1.2, this.reconnectAttempts - 1)
     this.log("info", `Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`)
-    setTimeout(() => {
-      this.connect(this.currentWsUrl, true).catch((err) => this.log("error", `Reconnection failed: ${err}`))
+    setTimeout(async () => {
+      try {
+        const target = this.urlProvider ? await this.urlProvider() : this.currentWsUrl
+        await this.connect(target, true)
+      } catch (err) {
+        this.log("error", `Reconnection failed: ${err}`)
+        if (this.urlProvider) this.handleReconnect()
+      }
     }, delay)
   }
 

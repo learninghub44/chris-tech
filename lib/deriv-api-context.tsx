@@ -87,19 +87,10 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
           setConnectionStatus("connected")
         }
 
-        if (token && isLoggedIn && token.length > 10 && !client.isAuth()) {
-          console.log("[v0] Authorizing global client with token...")
-          await client.authorize(token)
-          
-          // Also authorize the shared DerivAPIBasic connection if needed
-          const wsManager = DerivWebSocketManager.getInstance()
-          if (wsManager.isConnected()) {
-            wsManager.authorize(token).catch(console.error)
-          }
-        }
-        
+        // Auth is handled by useDerivAuth via REST + OTP WebSocket URL (no `authorize` message exists)
+
         setIsConnected(client.isConnected())
-        setIsAuthorized(client.isAuth())
+        setIsAuthorized(isLoggedIn)
         setError(null)
       } catch (err: any) {
         console.error("[v0] Sync failed:", err)
@@ -114,17 +105,10 @@ export function DerivAPIProvider({ children }: { children: React.ReactNode }) {
     const interval = setInterval(() => {
       if (client) {
         const connected = client.isConnected()
-        const authorized = client.isAuth()
+        const authorized = isLoggedIn
 
         setIsConnected(connected)
         setIsAuthorized(authorized)
-
-        // Auto-reauthorize if connected but lost authorization
-        if (connected && !authorized && token && isLoggedIn) {
-          client.authorize(token).catch(err => {
-            console.error("[v0] Background re-auth failed:", err)
-          })
-        }
 
         if (connected && authorized && error) {
           setError(null)

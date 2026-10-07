@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useRef } from "react"
 import { DerivWebSocketManager } from "@/lib/deriv-websocket-manager"
-import { DERIV_REDIRECT_URL } from "@/lib/deriv-config"
+import { DERIV_REDIRECT_URL, DERIV_API, DERIV_CONFIG } from "@/lib/deriv-config"
+import { derivREST } from "@/lib/deriv-rest-client"
 import { startDerivLogin } from "@/lib/deriv-login"
 
 interface Balance {
@@ -31,102 +32,39 @@ export function useDerivAuth() {
   const [showTokenModal, setShowTokenModal] = useState(false)
   const [balanceSubscribed, setBalanceSubscribed] = useState(false)
   const balanceSubscribedRef = useRef(false)
+  const sessionActiveRef = useRef(false)
   const manager = DerivWebSocketManager.getInstance()
 
-  // 1. Stable listener for auth and balance updates
+  // 1. Stable listener for balance updates (OTP sockets are pre-authenticated; no `authorize` message)
   useEffect(() => {
-    const handleAuthMessages = (data: any) => {
-      if (data.msg_type === "authorize") {
-        setIsInitializing(false)
-        if (data.error) {
-          console.error("[v0] ❌ Auth error:", data.error.message)
-          if (data.error.code === "InvalidToken" || data.error.code === "AuthorizationRequired") {
-            setIsLoggedIn(false)
-            setActiveLoginId(null)
-            activeLoginIdRef.current = null
-            setAccountCode("")
-            setToken("")
-
-            // Clear invalid credentials so they aren't retried indefinitely
-            localStorage.removeItem("deriv_api_token")
-            localStorage.removeItem("deriv_auth_tokens")
-            localStorage.removeItem("active_login_id")
-
-            setShowTokenModal(true)
-          }
-          return
-        }
-
-        const { authorize } = data
-        const accType = authorize.is_virtual ? "Demo" : "Real"
-
-        console.log("[v0] ✅ Authorized:", authorize.loginid, `(${accType})`)
-        setAccountType(accType)
-        setActiveLoginId(authorize.loginid)
-        activeLoginIdRef.current = authorize.loginid
-        setAccountCode(authorize.loginid || "")
-        setIsLoggedIn(true)
-        setShowTokenModal(false)
-
-        if (authorize.balance !== undefined) {
-          const initialBalance = {
-            amount: Number(authorize.balance),
-            currency: authorize.currency || "USD",
-          }
-          setBalance(initialBalance)
-        }
-
-        if (authorize.account_list && Array.isArray(authorize.account_list)) {
-          const formatted = authorize.account_list.map((acc: any) => ({
-            id: acc.loginid,
-            type: acc.is_virtual ? "Demo" : "Real",
-            currency: acc.currency,
-            balance: Number(acc.balance) || 0,
-          }))
-          setAccounts(formatted)
-        }
-
-        if (!balanceSubscribedRef.current) {
-          manager.send({ balance: 1, subscribe: 1 })
-          balanceSubscribedRef.current = true
-          setBalanceSubscribed(true)
-        }
+    const handleBalance = (data: any) => {
+      if (data.msg_type !== "balance" || !data.balance) return
+      const msgLoginId = data.balance.loginid || activeLoginIdRef.current
+      if (msgLoginId === activeLoginIdRef.current) {
+        setBalance({
+          amount: Number(data.balance.balance),
+          currency: data.balance.currency,
+        })
       }
-
-      if (data.msg_type === "balance" && data.balance) {
-        const msgLoginId = data.balance.loginid || activeLoginIdRef.current
-        console.log("[v0] 💰 Balance update received:", data.balance.balance, data.balance.currency, "for", msgLoginId)
-        
-        if (msgLoginId === activeLoginIdRef.current) {
-          setBalance({
-            amount: Number(data.balance.balance),
-            currency: data.balance.currency,
-          })
-        }
-
-        setAccounts(prev => prev.map(acc => {
-          if (acc.id === msgLoginId) {
-            return { ...acc, balance: Number(data.balance.balance) }
-          }
-          return acc
-        }))
-      }
+      setAccounts(prev => prev.map(acc =>
+        acc.id === msgLoginId ? { ...acc, balance: Number(data.balance.balance) } : acc
+      ))
     }
 
-    // Handle connection errors/closures to potentially reset initialization if stuck
+    // (Re)subscribe to balance every time the authenticated socket (re)connects
     const handleStatus = (status: string) => {
+      if (status === "connected" && sessionActiveRef.current) {
+        manager.send({ balance: 1, subscribe: 1 })
+      }
       if (status === "disconnected" && !localStorage.getItem("deriv_api_token")) {
         setIsInitializing(false)
       }
     }
 
-    manager.on("authorize", handleAuthMessages)
-    manager.on("balance", handleAuthMessages)
+    manager.on("balance", handleBalance)
     const unbindStatus = manager.onConnectionStatus(handleStatus)
-
     return () => {
-      manager.off("authorize", handleAuthMessages)
-      manager.off("balance", handleAuthMessages)
+      manager.off("balance", handleBalance)
       unbindStatus()
     }
   }, [])
@@ -154,6 +92,10 @@ export function useDerivAuth() {
       setIsInitializing(true)
       console.log("[v0] 🔄 Exchanging OAuth code for token...")
 
+      // Auth codes are single-use: consume PKCE state now so a re-run can't replay it
+      sessionStorage.removeItem('pkce_code_verifier')
+      sessionStorage.removeItem('oauth_state')
+
       try {
         const response = await fetch('/api/auth/deriv-token', {
           method: 'POST',
@@ -171,14 +113,10 @@ export function useDerivAuth() {
         const accessToken = data.access_token
         console.log("[v0] 🔑 OAuth 2.0 access token received")
 
-        // Store and authorize
+        // Store and start session (REST accounts -> OTP -> authenticated WebSocket)
         localStorage.setItem("deriv_api_token", accessToken)
         setToken(accessToken)
-        connectWithToken(accessToken)
-
-        // Clear PKCE from session
-        sessionStorage.removeItem('pkce_code_verifier')
-        sessionStorage.removeItem('oauth_state')
+        await connectWithToken(accessToken)
 
         // Clean URL
         const newUrl = window.location.origin + window.location.pathname
@@ -255,17 +193,69 @@ export function useDerivAuth() {
     }
   }, [])
 
-  const connectWithToken = async (apiToken: string) => {
+  const normalizeAccount = (a: any): Account => ({
+    id: a.account_id || a.loginid,
+    type: a.is_virtual ? "Demo" : "Real",
+    currency: a.currency || "USD",
+    balance: Number(a.balance) || 0,
+  })
+
+  const clearSession = () => {
+    localStorage.removeItem("deriv_api_token")
+    localStorage.removeItem("deriv_auth_tokens")
+    localStorage.removeItem("active_login_id")
+    sessionActiveRef.current = false
+    manager.setUrlProvider(null)
+    setToken("")
+    setIsLoggedIn(false)
+    setBalance(null)
+    setAccounts([])
+    setActiveLoginId(null)
+    activeLoginIdRef.current = null
+    setAccountCode("")
+  }
+
+  // Connect the shared WebSocket to a specific account via a fresh OTP URL (no `authorize` call)
+  const openAccountSocket = async (acc: Account) => {
+    manager.setUrlProvider(() => derivREST.getOTPUrl(acc.id))
+    const url = await derivREST.getOTPUrl(acc.id)
+    sessionActiveRef.current = true
+    balanceSubscribedRef.current = false
+    await manager.connect(url, true)
+
+    localStorage.setItem("active_login_id", acc.id)
+    setActiveLoginId(acc.id)
+    activeLoginIdRef.current = acc.id
+    setAccountType(acc.type)
+    setAccountCode(acc.id)
+    setBalance({ amount: acc.balance, currency: acc.currency })
+    setIsLoggedIn(true)
+    setShowTokenModal(false)
+    setIsInitializing(false)
+  }
+
+  const connectWithToken = async (apiToken: string, preferredId?: string) => {
     if (!apiToken || apiToken.length < 10) {
       setIsInitializing(false)
       return
     }
 
     try {
-      await manager.connect()
-      manager.send({ authorize: apiToken })
-    } catch (e) {
-      console.error("[v0] Connection error during auth:", e)
+      derivREST.setToken(apiToken)
+      const list = (await derivREST.getAccounts()).map(normalizeAccount)
+      if (list.length === 0) throw new Error("No Deriv trading accounts found for this login")
+      setAccounts(list)
+
+      const wanted = preferredId || localStorage.getItem("active_login_id")
+      const target = list.find(a => a.id === wanted) || list[0]
+      await openAccountSocket(target)
+      console.log("[v0] ✅ Session established:", target.id, `(${target.type})`)
+    } catch (e: any) {
+      console.error("[v0] ❌ Session setup failed:", e?.message || e)
+      if (e?.status === 401 || e?.status === 403) {
+        clearSession()
+        setShowTokenModal(true)
+      }
       setIsInitializing(false)
     }
   }
@@ -295,39 +285,29 @@ export function useDerivAuth() {
   const logout = () => {
     if (typeof window === "undefined") return
     manager.send({ forget_all: ["balance", "ticks", "proposal_open_contract"] })
-    localStorage.removeItem("deriv_api_token")
-    localStorage.removeItem("deriv_auth_tokens")
-    localStorage.removeItem("active_login_id")
-    setToken("")
-    setIsLoggedIn(false)
-    setBalance(null)
-    setAccounts([])
-    setActiveLoginId(null)
-    activeLoginIdRef.current = null
+    clearSession()
     setIsInitializing(false)
     balanceSubscribedRef.current = false
     setBalanceSubscribed(false)
+    // Drop the account socket and fall back to the public market-data socket
+    manager.disconnect()
+    manager.connect(`${DERIV_API.WEBSOCKET}?app_id=${DERIV_CONFIG.APP_ID}&l=en&brand=deriv`, true).catch(() => {})
     setShowTokenModal(true)
   }
 
-  const switchAccount = (loginId: string) => {
+  const switchAccount = async (loginId: string) => {
     if (!loginId || typeof window === "undefined") return
-    const storedTokens = JSON.parse(localStorage.getItem("deriv_auth_tokens") || "{}")
-    const targetToken = storedTokens[loginId] || token
-
-    if (!targetToken) return
+    const target = accounts.find(a => a.id === loginId)
+    if (!target) return
 
     console.log("[v0] 🔄 Switching account to:", loginId)
     setIsInitializing(true)
-    localStorage.setItem("deriv_api_token", targetToken)
-    localStorage.setItem("active_login_id", loginId)
-    setToken(targetToken)
-    
-    // Reset subscription flags so authorize handler re-subscribes for the NEW account
-    balanceSubscribedRef.current = false
-    setBalanceSubscribed(false)
-    
-    manager.send({ authorize: targetToken })
+    try {
+      await openAccountSocket(target)
+    } catch (e: any) {
+      console.error("[v0] ❌ Account switch failed:", e?.message || e)
+      setIsInitializing(false)
+    }
   }
 
   return {

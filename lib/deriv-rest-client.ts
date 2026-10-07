@@ -41,34 +41,42 @@ export class DerivRESTClient {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}))
-            throw new Error(errorData.message || `REST Request failed with status ${response.status}`)
+            const msg = errorData?.errors?.[0]?.message || errorData.message || `REST Request failed with status ${response.status}`
+            const err: any = new Error(msg)
+            err.status = response.status
+            throw err
         }
 
         return response.json()
     }
 
     /**
-     * Fetch a one-time password (OTP) for WebSocket authentication
-     * @param accountId The login ID of the account (e.g., CR12345, VRTC12345)
+     * Get an authenticated WebSocket URL (OTP already embedded) for an account.
+     * OTP is single-use and valid ~120s, so connect immediately.
      */
+    async getOTPUrl(accountId: string): Promise<string> {
+        const res = await this.request(`/trading/v1/options/accounts/${accountId}/otp`, { method: "POST" })
+        const url = res?.data?.url || res?.url
+        if (!url) throw new Error("OTP response did not include a WebSocket URL")
+        return url
+    }
+
+    /** @deprecated use getOTPUrl */
     async getOTP(accountId: string): Promise<string> {
-        try {
-            const data = await this.request(`/trading/v1/options/accounts/${accountId}/otp`, {
-                method: "POST"
-            })
-            return data.otp
-        } catch (error) {
-            console.error("[v0] Failed to fetch OTP:", error)
-            throw error
-        }
+        return this.getOTPUrl(accountId)
     }
 
     /**
-     * Get all registered Options accounts for the authenticated user
+     * Get all Options accounts (demo + real), normalized.
+     * API shape: { data: [ { account_id, account_type, balance, currency, ... } ] }
      */
     async getAccounts(): Promise<any[]> {
-        return this.request("/trading/v1/options/accounts", {
-            method: "GET"
+        const res = await this.request("/trading/v1/options/accounts", { method: "GET" })
+        const list = Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : []
+        return list.map((a: any) => {
+            const id = a.account_id ?? a.loginid ?? a.id
+            const isVirtual = a.account_type ? a.account_type === "demo" : !!a.is_virtual || String(id).startsWith("VRTC") || String(id).startsWith("DOT")
+            return { ...a, account_id: id, loginid: id, is_virtual: isVirtual, balance: Number(a.balance) || 0 }
         })
     }
 

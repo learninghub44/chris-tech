@@ -320,17 +320,13 @@ export class DerivAPIClient {
       throw new Error("Invalid symbol: Symbol cannot be empty")
     }
 
-    // Latest Deriv API Best Practice: Use underlying_symbol instead of symbol for proposal
+    // Symbol field naming (symbol vs underlying_symbol) is resolved centrally by the
+    // request normalizer, which also learns from server validation errors.
     const proposalReq: any = {
       proposal: 1,
       ...validatedParams,
-      underlying_symbol: validatedParams.symbol,
       basis: validatedParams.basis || "stake",
     }
-
-    // Remove legacy 'symbol' if underlying_symbol is preferred, 
-    // though keeping it usually doesn't hurt for v3 compatibility.
-    delete proposalReq.symbol
 
     const response = await this.send(proposalReq)
 

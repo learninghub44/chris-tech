@@ -18,7 +18,7 @@ interface ConnectionLog {
 }
 
 import { derivREST } from "./deriv-rest-client"
-import { normalizeDerivRequest } from "./deriv-request-normalizer"
+import { normalizeDerivRequest, learnFromValidationError } from "./deriv-request-normalizer"
 import { DERIV_CONFIG, DERIV_API } from "./deriv-config"
 import { extractLastDigit, calculateDecimalCount } from "./digit-utils"
 
@@ -100,6 +100,7 @@ export class DerivWebSocketManager {
   private currentWsUrl: string = `${DERIV_API.WEBSOCKET}?app_id=${DERIV_CONFIG.APP_ID}&l=en&brand=deriv`
 
   // When set, reconnects fetch a fresh single-use OTP URL instead of reusing a spent one
+  private retriedRequests = new Set<any>()
   private urlProvider: (() => Promise<string>) | null = null
 
   public setUrlProvider(fn: (() => Promise<string>) | null) { this.urlProvider = fn }
@@ -416,6 +417,19 @@ export class DerivWebSocketManager {
   private routeMessage(message: any) {
     try {
       if (message.msg_type === "ping" || message.echo_req?.ping) return
+
+      // Self-healing: on "Properties not allowed: x", adapt the request schema and retry once
+      if (message.error && message.echo_req && /Properties not allowed/i.test(message.error.message || "")) {
+        const key = message.req_id ?? message.echo_req.req_id
+        if (key !== undefined && !this.retriedRequests.has(key)) {
+          this.retriedRequests.add(key)
+          setTimeout(() => this.retriedRequests.delete(key), 30000)
+          if (learnFromValidationError(message.echo_req, message.error.message)) {
+            this.send({ ...message.echo_req }) // same req_id -> original waiter gets the retried response
+            return
+          }
+        }
+      }
 
       // Resolve pending req_id-based requests (fallback path)
       if (message.req_id) {

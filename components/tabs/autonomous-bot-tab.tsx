@@ -114,23 +114,41 @@ export function AutonomousBotTab({ theme = "dark", symbol }: AutonomousBotTabPro
         setAnalysisProgress(85)
         console.log(`[v0] Market conditions met. Executing ${contractType} trade with stake ${roundedStake}`)
 
-        const buyRequest = {
-          buy: 1,
-          subscribe: 1,
+        const tradeSymbol = symbol || "R_100"
+
+        // 1. Price the contract, 2. buy it, 3. wait for real settlement
+        const proposal: any = await apiClient.getProposal({
+          proposal: 1,
+          amount: roundedStake,
+          basis: "stake",
           contract_type: contractType,
           currency: "USD",
           duration: 5,
           duration_unit: "t",
-          symbol: "",
-          amount: roundedStake,
-          parameters: contractType === "DIGITDIFF" ? { digit_lower: digitValue } : { digit: digitValue },
-        }
+          symbol: tradeSymbol,
+          barrier: String(digitValue),
+        } as any)
 
-        const response = await apiClient.call(buyRequest)
+        const bought = await apiClient.buyContract(proposal.id, Number(proposal.ask_price))
+
+        const settled: any = await new Promise((resolve) => {
+          let subId = ""
+          const timer = setTimeout(() => resolve(null), 60000)
+          apiClient
+            .subscribeProposalOpenContract(bought.contract_id, (c: any) => {
+              if (c.is_sold || c.status === "won" || c.status === "lost") {
+                clearTimeout(timer)
+                if (subId) apiClient.forget(subId).catch(() => {})
+                resolve(c)
+              }
+            })
+            .then((id) => { subId = id })
+            .catch(() => { clearTimeout(timer); resolve(null) })
+        })
         setAnalysisProgress(100)
 
-        const isWin = response?.buy?.win || false
-        const profit = response?.buy?.payout ? response.buy.payout - roundedStake : 0
+        const profit = Number(settled?.profit ?? 0)
+        const isWin = settled ? profit > 0 : false
         const newPL = stats.pl + profit
 
         setStats((prev) => ({

@@ -1,5 +1,6 @@
 "use client"
 
+import { normalizeDerivRequest } from "./deriv-request-normalizer"
 import { DERIV_CONFIG, DERIV_API } from "./deriv-config"
 
 /**
@@ -98,7 +99,7 @@ export class ChartWebSocketManager {
 
   public send(msg: any) {
     if (this.ws?.readyState === WebSocket.OPEN) {
-      this.ws.send(JSON.stringify(msg))
+      this.ws.send(JSON.stringify(normalizeDerivRequest(msg)))
     }
   }
 
@@ -108,7 +109,7 @@ export class ChartWebSocketManager {
     }
 
     const req_id = Math.floor(Math.random() * 1000000)
-    const payload = { ...msg, req_id }
+    const payload = { ...normalizeDerivRequest(msg), req_id }
 
     return new Promise((resolve, reject) => {
       const handler = (data: any) => {

@@ -345,7 +345,6 @@ export class DerivAPIClient {
   async getTickHistory(symbol: string, count = 1000): Promise<TickHistoryResponse> {
     const response = await this.send({
       ticks_history: symbol,
-      underlying_symbol: symbol,
       count: count,
       end: "latest",
       style: "ticks",
@@ -472,10 +471,6 @@ export class DerivAPIClient {
     try {
       // Delegate to manager for shared subscription handling
       const request: any = { ticks: symbol, subscribe: 1 }
-      if (this.config.isOptions) {
-        request.underlying_symbol = symbol
-        delete request.ticks // Might need to keep both or swap, let's follow migration guide strictly
-      }
 
       const subscriptionId = await this.manager.subscribeTicks(symbol, callback)
 

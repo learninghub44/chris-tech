@@ -18,6 +18,7 @@ interface ConnectionLog {
 }
 
 import { derivREST } from "./deriv-rest-client"
+import { normalizeDerivRequest } from "./deriv-request-normalizer"
 import { DERIV_CONFIG, DERIV_API } from "./deriv-config"
 import { extractLastDigit, calculateDecimalCount } from "./digit-utils"
 
@@ -362,7 +363,8 @@ export class DerivWebSocketManager {
 
   // ─── Send ──────────────────────────────────────────────────────────────────
 
-  public send(message: any): void {
+  public send(rawMessage: any): void {
+    const message = normalizeDerivRequest(rawMessage)
     if (this.api && this.ws?.readyState === WebSocket.OPEN) {
       // DerivAPIBasic.send() returns a Promise — suppress unhandled rejection for fire-and-forget
       this.api.send(message).catch(() => { })
@@ -383,7 +385,7 @@ export class DerivWebSocketManager {
     }
 
     const req_id = message.req_id || this.getNextReqId()
-    const payload = { ...message, req_id }
+    const payload = { ...normalizeDerivRequest(message), req_id }
     
     return new Promise((resolve, reject) => {
       const t = setTimeout(() => {

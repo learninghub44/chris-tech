@@ -633,6 +633,11 @@ export function SmartAuto24Tab({
 
       const result = await traderRef.current.executeTrade(tradeConfig)
 
+      if (!result) {
+        addAnalysisLog(`Trade failed: ${traderRef.current.lastError || "no result returned"}`, "warning")
+        entryPointMetRef.current = false
+      }
+
       if (result) {
         setSessionTrades(prev => prev + 1)
         setSessionProfit(traderRef.current!.getTotalProfit())

@@ -1,5 +1,6 @@
 import type { DerivAPIClient } from "./deriv-api"
 import { EventEmitter } from "events"
+import { isContractSettled } from "./deriv-contract-utils"
 
 export interface TradeConfig {
   symbol: string
@@ -27,6 +28,7 @@ export class DerivRealTrader extends EventEmitter {
   private activeContracts: Map<number, any> = new Map()
   private tradeHistory: TradeResult[] = []
   private totalProfit = 0
+  public lastError: string | null = null
   private maxTrades = 100
   private tradesExecuted = 0
   private pendingTrades: Map<number, { resolve: (result: TradeResult | null) => void }> = new Map()
@@ -37,6 +39,7 @@ export class DerivRealTrader extends EventEmitter {
   }
 
   async executeTrade(config: TradeConfig): Promise<TradeResult | null> {
+    this.lastError = null
     try {
       if (this.tradesExecuted >= this.maxTrades) {
         console.log("[v0] Max trades reached")
@@ -111,12 +114,24 @@ export class DerivRealTrader extends EventEmitter {
         this.pendingTrades.set(contractId, { resolve })
         this.tradesExecuted++
 
+        // Never wait forever for settlement (ticks ~1-2s each + buffer)
+        const settleTimeoutMs = (config.durationUnit === "t" ? duration * 3000 : 120000) + 60000
+        setTimeout(() => {
+          if (this.pendingTrades.has(contractId)) {
+            this.lastError = `Contract ${contractId} did not settle within ${Math.round(settleTimeoutMs / 1000)}s`
+            this.pendingTrades.delete(contractId)
+            this.activeContracts.delete(contractId)
+            resolve(null)
+          }
+        }, settleTimeoutMs)
+
         this.apiClient
           .subscribeProposalOpenContract(contractId, (contract) => {
             this.handleContractUpdate(contractId, contract)
           })
           .catch((err) => {
             console.error("[v0] Subscription error:", err)
+            this.lastError = `Could not track contract: ${err?.message || err}`
             resolve(null)
           })
 
@@ -124,6 +139,7 @@ export class DerivRealTrader extends EventEmitter {
       })
     } catch (error) {
       console.error("[v0] Trade execution error:", error)
+      this.lastError = (error as any)?.message || String(error)
       this.emit("trade-error", error)
       return null
     }
@@ -140,7 +156,7 @@ export class DerivRealTrader extends EventEmitter {
       status: contract.status,
     })
 
-    if (contract.is_sold || contract.status === "sold") {
+    if (isContractSettled(contract)) {
       const profit = contract.profit || 0
       const isWin = profit > 0
 

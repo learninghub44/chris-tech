@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient, ContractUpdate } from "./deriv-api"
 
 interface TradingBotConfig {
@@ -189,7 +190,7 @@ export class TradingBot {
     return new Promise((resolve, reject) => {
       this.api
         .subscribeProposalOpenContract(contractId, (contract) => {
-          if (contract.is_sold) {
+          if (isContractSettled(contract)) {
             // Unsubscribe when contract is sold
             if (this.currentSubscriptionId) {
               this.api.forget(this.currentSubscriptionId).catch(() => { })

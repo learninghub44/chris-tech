@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import type { DerivSymbol } from "@/hooks/use-deriv"
@@ -285,7 +286,7 @@ export default function TradingBotSlider() {
             const contract = data.proposal_open_contract;
 
             // Check if the contract is sold/settled
-            if (contract.is_sold) {
+            if (isContractSettled(contract)) {
                 const contractId = contract.contract_id;
                 const entryPrice = contract.buy_price;
                 const exitPrice = contract.sell_price || contract.current_spot;

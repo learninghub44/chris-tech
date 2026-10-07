@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient, ProposalRequest } from "@/lib/deriv-api"
 
 export interface RealTradeConfig {
@@ -218,7 +219,7 @@ export class RealTradeExecutor {
     const trade = this.activeContracts.get(contractId)
     if (!trade) return
 
-    if (contract.is_sold) {
+    if (isContractSettled(contract)) {
       // Contract closed
       const profit = contract.profit || 0
       trade.profit = profit

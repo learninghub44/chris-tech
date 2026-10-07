@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient } from "@/lib/deriv-api"
 
 export interface TradeConfig {
@@ -198,7 +199,7 @@ export class DerivTradeManager {
     const trade = this.activeContracts.get(contractId)
     if (!trade) return
 
-    if (contract.is_sold) {
+    if (isContractSettled(contract)) {
       const profit = contract.profit || 0
       trade.profit = profit
       trade.result = profit > 0 ? "WIN" : "LOSS"

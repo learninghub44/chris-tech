@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient } from "./deriv-api"
 import { extractLastDigit } from "./digit-utils"
 import { AnalysisEngine, type Signal } from "./analysis-engine"
@@ -29,6 +30,7 @@ export interface AutoBotState {
   trades: TradeLog[]
   isAnalyzing?: boolean
   isTrading?: boolean
+  lastError?: string | null
   lastTrade?: TradeLog | null
   currentAnalysis?: any
   proposalMetrics?: {
@@ -206,6 +208,7 @@ export class AutoBot {
         const result = await this.executeTrade(signal.contractType, signal.prediction)
         this.state.isTrading = false
 
+        this.state.lastError = null
         console.log(`[v0] 🎲 Trade result: ${result.isWin ? "WIN" : "LOSS"}, Profit: $${result.profit.toFixed(2)}`)
 
         // Process result
@@ -215,7 +218,10 @@ export class AutoBot {
         // Cooldown between trades
         await this.delay(this.config.cooldownMs)
       } catch (error: any) {
-        console.error(`[v0] Error in trading loop:`, error.message)
+        console.error(`[v0] Error in trading loop:`, error)
+        this.state.isTrading = false
+        this.state.lastError = error?.message || String(error)
+        this.updateUI()
         // Don't stop bot on single error, just continue after delay
         await this.delay(5000)
       }
@@ -408,7 +414,7 @@ export class AutoBot {
 
       this.api
         .subscribeProposalOpenContract(contractId, (contract) => {
-          if (contract.is_sold) {
+          if (isContractSettled(contract)) {
             clearTimeout(timeout)
             const profit = contract.profit || 0
             const payout = contract.payout || 0

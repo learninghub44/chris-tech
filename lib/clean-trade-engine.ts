@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient } from "./deriv-api"
 
 export interface TradeParams {
@@ -74,7 +75,7 @@ export class CleanTradeEngine {
             profit: contract.profit,
           })
 
-          if (contract.is_sold || contract.status === "sold") {
+          if (isContractSettled(contract)) {
             const profit = contract.profit || 0
             const win = profit > 0
 

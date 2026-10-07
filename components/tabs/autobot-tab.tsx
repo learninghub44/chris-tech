@@ -154,6 +154,7 @@ export function AutoBotTab({
 
   const [activeBots, setActiveBots] = useState<Map<BotStrategy, AutoBot>>(new Map())
   const [botStates, setBotStates] = useState<Map<BotStrategy, AutoBotState>>(new Map())
+  const [startError, setStartError] = useState<string | null>(null)
   const [botAnalysis, setBotAnalysis] = useState<Map<BotStrategy, any>>(new Map())
   const [botReadyStatus, setBotReadyStatus] = useState<Map<BotStrategy, boolean>>(new Map())
   const [botConfigs, setBotConfigs] = useState<Map<BotStrategy, BotConfig>>(new Map())
@@ -352,6 +353,7 @@ export function AutoBotTab({
     try {
       if (!apiClient || !isConnected || !isAuthorized) {
         console.error("[v0] Cannot start bot - API not ready")
+        setStartError(!isLoggedIn ? "Log in to your Deriv account before starting a bot." : !isConnected ? "Not connected to Deriv yet. Please wait a moment and try again." : "Session not authorized yet. Please wait a moment and try again.")
         return
       }
 
@@ -360,9 +362,11 @@ export function AutoBotTab({
 
       if (botConfig.initialStake <= 0) {
         console.error("[v0] Initial stake must be greater than 0")
+        setStartError("Initial stake must be greater than 0.")
         return
       }
 
+      setStartError(null)
       setBotStatus((prev) => new Map(prev).set(strategy, "In Progress"))
 
       const validatedStake = Math.round(botConfig.initialStake * 100) / 100
@@ -435,6 +439,7 @@ export function AutoBotTab({
       setActiveBots((prev) => new Map(prev).set(strategy, newBot))
     } catch (error: any) {
       console.error(`[v0] Error starting ${strategy} bot:`, error)
+      setStartError(`Could not start ${strategy} bot: ${error?.message || error}`)
       setBotStatus((prev) => new Map(prev).set(strategy, "Error"))
     }
   }
@@ -485,6 +490,16 @@ export function AutoBotTab({
 
   return (
     <div className="space-y-2 sm:space-y-6">
+      {(startError || Array.from(botStates.values()).some((b) => b.lastError)) && (
+        <Card className="bg-red-500/10 border-red-500/30">
+          <CardContent className="p-3 flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+            <p className="text-xs font-medium text-red-400 break-words">
+              {startError || Array.from(botStates.values()).find((b) => b.lastError)?.lastError}
+            </p>
+          </CardContent>
+        </Card>
+      )}
       {(apiError || (!isConnected && !currentPrice)) && (
         <Card className={theme === "dark" ? "bg-red-500/10 border-red-500/30" : "bg-red-50 border-red-200"}>
           <CardContent className="p-3 sm:pt-6 flex items-start gap-2 sm:gap-3">

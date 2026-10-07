@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient } from "./deriv-api"
 
 export interface TradeConfig {
@@ -141,7 +142,7 @@ export class TradeExecutor {
                 current_spot: (contract as any).current_spot,
               })
 
-              if (contract.status === "sold" || Number(contract.is_sold) === 1) {
+              if (isContractSettled(contract)) {
                 contractSettled = true
 
                 const profit = contract.profit ?? 0

@@ -1,3 +1,4 @@
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import type { DerivAPIClient } from "./deriv-api"
 import { extractLastDigit } from "./digit-utils"
 
@@ -401,7 +402,7 @@ export class AutonomousBotEngine {
 
       this.api
         .subscribeProposalOpenContract(contractId, (contract) => {
-          if (contract.is_sold) {
+          if (isContractSettled(contract)) {
             clearTimeout(timeout)
             resolve({ profit: contract.profit || 0 })
           }

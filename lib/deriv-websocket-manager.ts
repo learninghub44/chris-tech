@@ -193,6 +193,8 @@ export class DerivWebSocketManager {
           this.connectionPromise = null
           this.isAuthorized = !!this.urlProvider
           if (!this.urlProvider) this.tryAutoAuthorize()
+          // New socket (login swap / reconnect): server-side subscriptions are gone
+          setTimeout(() => this.resubscribeTicks(), 0)
           resolve()
         })
 
@@ -523,6 +525,33 @@ export class DerivWebSocketManager {
   }
 
   // ─── Tick subscriptions ────────────────────────────────────────────────────
+
+  /**
+   * After the socket is replaced (public -> authenticated OTP socket on login, or any reconnect)
+   * the old subscriptions no longer exist server-side, but our bookkeeping still claims they do,
+   * so bots/charts wait forever for ticks. Reset bookkeeping and subscribe again, keeping callbacks.
+   */
+  private resubscribeTicks() {
+    const symbols = Array.from(this.tickCallbacks.keys())
+    this.symbolToSubscriptionMap.clear()
+    this.subscriptionRefCount.clear()
+    this.subscriptions.clear()
+    this.activeSubscriptions.clear()
+    if (symbols.length === 0) return
+
+    this.log("info", `Resubscribing ${symbols.length} tick stream(s) on new socket`)
+    symbols.forEach((sym) => {
+      this.sendAndWait({ ticks: sym, subscribe: 1 }, 30000)
+        .then((resp) => {
+          const id = resp?.subscription?.id
+          if (!id) return
+          this.symbolToSubscriptionMap.set(sym, id)
+          this.subscriptions.set(id, sym)
+          this.subscriptionRefCount.set(id, this.tickCallbacks.get(sym)?.size || 1)
+        })
+        .catch((err) => console.error(`[v0] Resubscribe failed for ${sym}:`, err))
+    })
+  }
 
   public async subscribeTicks(symbol: string, callback: (tick: TickData) => void): Promise<string> {
     if (!symbol || typeof symbol !== 'string' || symbol.trim() === "") {

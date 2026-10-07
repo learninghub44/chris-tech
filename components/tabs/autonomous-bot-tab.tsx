@@ -1,5 +1,6 @@
 "use client"
 
+import { isContractSettled } from "@/lib/deriv-contract-utils"
 import { useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -136,7 +137,7 @@ export function AutonomousBotTab({ theme = "dark", symbol }: AutonomousBotTabPro
           const timer = setTimeout(() => resolve(null), 60000)
           apiClient
             .subscribeProposalOpenContract(bought.contract_id, (c: any) => {
-              if (c.is_sold || c.status === "won" || c.status === "lost") {
+              if (isContractSettled(c)) {
                 clearTimeout(timer)
                 if (subId) apiClient.forget(subId).catch(() => {})
                 resolve(c)

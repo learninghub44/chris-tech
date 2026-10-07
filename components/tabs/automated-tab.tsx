@@ -222,12 +222,13 @@ export function AutoBotTab({ theme = "dark", symbol, onSymbolChange, availableSy
   const slProgress = botState ? Math.min((Math.abs(botState.profitLoss) / slAmount) * 100, 100) : 0
 
   const isRunning = botState?.isRunning || false
+  const botError = botState?.lastError || null
   const canStart = !isRunning && isConnected && isAuthorized && !!apiClient && !isLoading
 
   return (
     <div className="space-y-3 sm:space-y-6">
       {/* Connection Status Alert - only show if no data and really disconnected */}
-      {(apiError || localError || (!isConnected && marketPrice === 0)) && (
+      {(apiError || localError || botError || (!isConnected && marketPrice === 0)) && (
         <Card className="bg-rose-500/5 border-rose-500/20 backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-500">
           <CardContent className="p-4 flex items-start gap-3">
             <div className="p-2 rounded-full bg-rose-500/10 border border-rose-500/20">
@@ -236,7 +237,7 @@ export function AutoBotTab({ theme = "dark", symbol, onSymbolChange, availableSy
             <div>
               <p className="text-xs font-black uppercase tracking-widest text-rose-400">Uplink Interruption</p>
               <p className="text-[10px] sm:text-xs mt-1 text-rose-400/80 font-medium">
-                {localError || apiError || "Negotiating WebSocket connection..."}
+                {localError || botError || apiError || "Negotiating WebSocket connection..."}
               </p>
             </div>
           </CardContent>

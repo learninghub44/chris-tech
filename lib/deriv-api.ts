@@ -187,24 +187,19 @@ export class DerivAPIClient {
   async connect(): Promise<void> {
     if (this.config.isOptions) {
       const type = this.config.accountType || "public"
-      let otp: string | undefined
-
       if (type !== "public" && this.config.token) {
-        // We need an account ID to get an OTP. 
-        // For now, we assume provide it via config or fetch it first.
-        // Let's assume we fetch accounts if not provided.
-        try {
-          const accounts = await derivREST.getAccounts()
-          const account = accounts.find(a => this.config.accountType === "demo" ? a.is_virtual : !a.is_virtual)
-          if (account) {
-            otp = await derivREST.getOTP(account.loginid)
-          }
-        } catch (e) {
-          console.error("[v0] Potential error fetching OTP (might be public only):", e)
+        // Authenticated options socket: REST accounts -> OTP URL (done by startSession)
+        if (!this.manager.hasSession()) {
+          derivREST.setToken(this.config.token)
+          const accounts = await derivREST.getAccounts().catch(() => [])
+          const account = accounts.find((a: any) => (type === "demo" ? a.is_virtual : !a.is_virtual))
+          await this.manager.startSession(this.config.token, account?.account_id)
         }
+        this.isAuthorised = true
+        return
       }
 
-      await this.manager.connectOptions(type, otp)
+      await this.manager.connectOptions(type)
       this.isAuthorised = type !== "public" // OTP auth is implicit
     } else {
       await this.manager.connect()
@@ -278,22 +273,18 @@ export class DerivAPIClient {
 
   async authorize(token: string): Promise<AuthorizeResponse> {
     this.config.token = token
-
-    return new Promise(async (resolve, reject) => {
-      const timeout = setTimeout(() => {
-        reject(new Error("Authorization request timeout after 10 seconds"))
-      }, 10000)
-
-      try {
-        const response = await this.send({ authorize: token })
-        clearTimeout(timeout)
-        this.isAuthorised = true
-        resolve(response.authorize)
-      } catch (error) {
-        clearTimeout(timeout)
-        reject(error)
-      }
-    })
+    // Deriv's new API has no WS `authorize`: sessions are OTP-authenticated sockets.
+    if (!this.manager.hasSession()) {
+      await this.manager.startSession(token)
+    }
+    this.isAuthorised = true
+    const info = this.manager.sessionInfo
+    return {
+      loginid: info?.loginid,
+      currency: info?.currency,
+      balance: info?.balance,
+      is_virtual: info?.is_virtual ? 1 : 0,
+    } as unknown as AuthorizeResponse
   }
 
   async getActiveSymbols(): Promise<ActiveSymbol[]> {

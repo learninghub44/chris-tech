@@ -68,18 +68,16 @@ export class DerivConnector extends EventEmitter {
     }
 
     try {
-      const response = await this.sendAndWait({ authorize: token }, "authorize", 10000)
-
-      if (response.authorize) {
-        this.authorized = true
-        this.connectionState.isAuthorized = true
-        this.loginId = response.authorize.loginid
-        this.accountCurrency = response.authorize.currency
-        console.log(`[v0] ✅ Authorized as ${this.loginId} (${this.accountCurrency})`)
-        this.emit("authorized", { loginId: this.loginId, currency: this.accountCurrency })
-      } else {
-        throw new Error(response.error?.message || "Authorization failed")
+      if (!this.manager.hasSession()) {
+        await this.manager.startSession(token)
       }
+      const info = this.manager.sessionInfo
+      this.authorized = true
+      this.connectionState.isAuthorized = true
+      this.loginId = info?.loginid ?? null
+      this.accountCurrency = info?.currency ?? null
+      console.log(`[v0] ✅ Authorized as ${this.loginId} (${this.accountCurrency})`)
+      this.emit("authorized", { loginId: this.loginId, currency: this.accountCurrency })
     } catch (error) {
       console.error("[v0] ❌ Authorization failed:", error)
       this.connectionState.lastErrorMessage = `Auth error: ${error}`

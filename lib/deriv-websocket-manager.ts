@@ -17,6 +17,7 @@ interface ConnectionLog {
   timestamp: Date
 }
 
+import { derivREST } from "./deriv-rest-client"
 import { DERIV_CONFIG, DERIV_API } from "./deriv-config"
 import { extractLastDigit, calculateDecimalCount } from "./digit-utils"
 
@@ -246,19 +247,40 @@ export class DerivWebSocketManager {
   /**
    * Called by deriv-api-context after OAuth login to authorize the shared connection.
    */
+  /** True when the socket is an OTP-authenticated account session. */
+  public hasSession(): boolean {
+    return !!this.urlProvider && this.ws?.readyState === WebSocket.OPEN
+  }
+
+  public sessionInfo: { loginid: string; currency: string; balance: number; is_virtual: boolean } | null = null
+
+  /**
+   * Start an authenticated session from an OAuth access token / PAT:
+   * REST accounts -> OTP URL -> connect. Replaces the removed WS `authorize` message.
+   */
+  public async startSession(token: string, preferredId?: string) {
+    derivREST.setToken(token)
+    const accounts = await derivREST.getAccounts()
+    if (!accounts.length) throw new Error("No Deriv trading accounts found for this token")
+    const acc = accounts.find((a: any) => a.account_id === preferredId) || accounts[0]
+    const id = acc.account_id
+    this.setUrlProvider(() => derivREST.getOTPUrl(id))
+    await this.connect(await derivREST.getOTPUrl(id), true)
+    this.isAuthorized = true
+    this.sessionInfo = { loginid: id, currency: acc.currency || "USD", balance: Number(acc.balance) || 0, is_virtual: !!acc.is_virtual }
+    return this.sessionInfo
+  }
+
+  /** Back-compat entry point: no-op if a session already exists, otherwise starts one. */
   public async authorize(token: string): Promise<void> {
-    if (!this.api || !token) return
+    if (!token) return
+    if (this.hasSession()) { this.isAuthorized = true; return }
     try {
-      const res = await this.api.send({ authorize: token })
-      if (res?.error) {
-        console.error("[v0] Authorization failed:", res.error)
-        this.isAuthorized = false
-      } else {
-        console.log("[v0] Authorized:", res?.authorize?.loginid)
-        this.isAuthorized = true
-      }
+      await this.startSession(token)
     } catch (e) {
       console.error("[v0] authorize() error:", e)
+      this.isAuthorized = false
+      throw e
     }
   }
 

@@ -33,22 +33,9 @@ export class GlobalTradeExecutor {
 
   async connect(): Promise<void> {
     try {
-      await this.manager.connect()
-      await new Promise<void>((resolve, reject) => {
-        const authorizeHandler = (data: any) => {
-          if (data.msg_type === "authorize" && !data.error) {
-            console.log("[v0] ✅ Trade executor authorized")
-            this.manager.off("*", authorizeHandler)
-            resolve()
-          } else if (data.error && data.msg_type === "authorize") {
-            console.error("[v0] ❌ Authorization failed:", data.error.message)
-            this.manager.off("*", authorizeHandler)
-            reject(new Error(data.error.message))
-          }
-        }
-        this.manager.on("*", authorizeHandler)
-        this.manager.send({ authorize: this.apiToken })
-      })
+      // Reuse the logged-in OTP session if present; otherwise start one from the token
+      await this.manager.authorize(this.apiToken)
+      console.log("[v0] ✅ Trade executor authorized")
     } catch (error) {
       console.error("[v0] GlobalTradeExecutor connect error:", error)
       throw error

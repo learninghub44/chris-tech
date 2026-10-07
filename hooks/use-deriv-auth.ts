@@ -222,6 +222,8 @@ export function useDerivAuth() {
     sessionActiveRef.current = true
     balanceSubscribedRef.current = false
     await manager.connect(url, true)
+    manager.isAuthorized = true
+    manager.sessionInfo = { loginid: acc.id, currency: acc.currency, balance: acc.balance, is_virtual: acc.type === "Demo" }
 
     localStorage.setItem("active_login_id", acc.id)
     setActiveLoginId(acc.id)

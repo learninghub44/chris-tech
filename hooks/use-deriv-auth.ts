@@ -77,60 +77,9 @@ export function useDerivAuthState() {
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    const handleOAuthCallback = async (params: URLSearchParams) => {
-      const code = params.get('code')
-      const returnedState = params.get('state')
-      const storedState = sessionStorage.getItem('oauth_state')
-      const codeVerifier = sessionStorage.getItem('pkce_code_verifier')
-
-      if (!code || !returnedState || !storedState || !codeVerifier) return
-
-      if (returnedState !== storedState) {
-        console.error("[v0] ❌ OAuth State mismatch! CSRF detected or invalid session.")
-        return
-      }
-
-      setIsInitializing(true)
-      console.log("[v0] 🔄 Exchanging OAuth code for token...")
-
-      // Auth codes are single-use: consume PKCE state now so a re-run can't replay it
-      sessionStorage.removeItem('pkce_code_verifier')
-      sessionStorage.removeItem('oauth_state')
-
-      try {
-        const response = await fetch('/api/auth/deriv-token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            code,
-            code_verifier: codeVerifier,
-            redirect_uri: DERIV_REDIRECT_URL
-          })
-        })
-
-        const data = await response.json()
-        if (data.error) throw new Error(data.error)
-
-        const accessToken = data.access_token
-        console.log("[v0] 🔑 OAuth 2.0 access token received")
-
-        // Store and start session (REST accounts -> OTP -> authenticated WebSocket)
-        localStorage.setItem("deriv_api_token", accessToken)
-        setToken(accessToken)
-        await connectWithToken(accessToken)
-
-        // Clean URL
-        const newUrl = window.location.origin + window.location.pathname
-        window.history.replaceState({}, document.title, newUrl)
-      } catch (err: any) {
-        console.error("[v0] ❌ Token exchange failed:", err.message)
-        setIsInitializing(false)
-      }
-    }
-
     const searchParams = new URLSearchParams(window.location.search)
-    if (searchParams.has('code')) {
-      handleOAuthCallback(searchParams)
+    // The OAuth code is exchanged ONLY by /callback (single-use code). Never touch it here.
+    if (searchParams.has('code') || window.location.pathname === '/callback') {
       return
     }
 

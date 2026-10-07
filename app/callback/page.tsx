@@ -69,6 +69,11 @@ export default function OAuthCallbackPage() {
         })
         data = await res.json().catch(() => ({}))
         if (!res.ok || data.error || !data.access_token) {
+          // If a token is already stored (code was consumed by a concurrent run), just continue
+          if (localStorage.getItem("deriv_api_token")) {
+            window.location.replace("/")
+            return
+          }
           return fail(`Token exchange failed: ${data.error_description || data.error || res.status}`)
         }
       } catch (e: any) {
